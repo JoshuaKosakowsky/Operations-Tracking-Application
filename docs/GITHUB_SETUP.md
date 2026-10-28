@@ -3,6 +3,12 @@
 Repository: [JoshuaKosakowsky/Operations-Tracking-Application](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application).
 Visibility: public. Default branch: `main`. Fresh Git history.
 
+Initial publication/readback on 2026-10-27 (America/Denver): public repository,
+`main` unprotected, zero rulesets, all five invitations pending with `write`
+permission. Initial setup used owner-authorized bootstrap commits on `main`.
+See [setup evidence](TEST_RESULTS.md) and [issue #1](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/1).
+These are dated observations; check GitHub for current membership/settings.
+
 ## Current approved setup
 
 - Publish the setup and configure type/status labels and issue/PR templates.
@@ -17,6 +23,9 @@ Visibility: public. Default branch: `main`. Fresh Git history.
 - No license is selected. Public repository creation does not choose one.
 
 ## Required later: GOVERNANCE-01
+
+Tracked in [issue #2](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/2),
+labelled `infrastructure` and `status: deferred`, with no invented assignees.
 
 Activate only after owner authorization. Review the proposed policy with the team:
 

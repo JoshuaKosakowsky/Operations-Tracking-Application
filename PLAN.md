@@ -9,9 +9,9 @@ reference only; this repository starts with fresh Git history.
 
 | ID | Outcome and acceptance | State / owner |
 |---|---|---|
-| SETUP-01 | Required docs, safe configuration, plain FastAPI startup, locked environment, relevant local checks and public GitHub CI | In progress / JoshuaKosakowsky with Codex |
-| SETUP-02 | Invite chha7734-web, jovi1214, mase7919, MSpanny and prse4479 with Write access; distinguish pending from accepted | Pending / JoshuaKosakowsky |
-| GOVERNANCE-01 | Activate and verify strict main protection and independent-review requirements after owner authorization | Required later; deferred / unassigned |
+| [SETUP-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/1) | Required docs, safe configuration, plain FastAPI startup, locked environment, relevant local checks and public GitHub CI | Complete / JoshuaKosakowsky with Codex |
+| [SETUP-02](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/1) | Invite chha7734-web, jovi1214, mase7919, MSpanny and prse4479 with Write access; distinguish pending from accepted | Invitations sent; initially pending acceptance / JoshuaKosakowsky |
+| [GOVERNANCE-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/2) | Activate and verify strict main protection and independent-review requirements after owner authorization | Required later; deferred / unassigned |
 | PLAN-01 | Agree on operations-tracking requirements and acceptance, data ownership, integration owner and task allocation | Future planning / unassigned |
 | INTEGRATIONS-01 | Plan Google Calendar authorization/data scope and OpenAI agent behavior, model, costs and safe action permissions | Future planning / unassigned |
 

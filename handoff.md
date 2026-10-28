@@ -1,17 +1,22 @@
 # Current handoff
 
 - Date: 2026-10-27, America/Denver. Agent: Codex.
-- Task: approved repository/documentation/tooling and FastAPI skeleton setup.
-- Repository: JoshuaKosakowsky/Operations-Tracking-Application; fresh history.
-- Branch/base: initial setup; no inherited app code or Git commits.
-- Scope: plain startup page/health only; business features and visual design pending.
-- Added: root docs, workflow templates, locked Python tooling, startup and verification scripts.
-- Added: Windows/Linux Python checks, Chromium smoke, exact-commit ZIP and security audit workflows.
-- Planned APIs: Google Calendar and OpenAI; no accounts connected or live calls made.
-- Main protection, required reviews/checks and blocking hooks intentionally inactive.
-- Later strict enforcement is tracked as required GOVERNANCE-01 in PLAN.
-- Validation: pending; see docs/TEST_RESULTS.md for subsequent observed results.
-- Publication and the five collaborator invitations are explicitly authorized.
-- Invitations must be reported as pending until accepted.
-- Next: run local checks/browser/audit/archive rehearsal, publish, verify CI and invitations.
-- Do not interpret setup-only completion as a working operations-tracking product.
+- Task: approved repository/documentation/tooling and FastAPI skeleton setup complete.
+- Repo: [Operations-Tracking-Application](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application).
+- Branch: main; initial code/base commit: 87b14d57ecadbeb73fceeafd458801c6fcbeb5fa.
+- Fresh Git history; Assignment 3 supplied workflow structure only, no app code.
+- Added: AGENTS, CONTRIBUTING, PLAN, README, handoff, supporting docs and issue/PR templates.
+- Added: locked Python/FastAPI tooling, plain title/status page, local health endpoint.
+- Added: Windows/Linux Python CI, Ruff, real Chromium smoke, exact-commit ZIP startup and pip-audit.
+- Local checks: repository safeguards, Ruff, 4 pytest tests, browser refresh/reload/failure recovery passed.
+- Local locked audit: no known vulnerabilities; upstream Starlette/httpx deprecation warning in pytest.
+- Local archive rehearsal and actual GitHub ZIP both passed clean install/normal launcher checks.
+- Initial GitHub CI and all three audit jobs passed; links/details in docs/TEST_RESULTS.md.
+- Final documentation-only publication triggers CI again; final result lives in setup issue #1.
+- All five approved Write invitations sent; initially pending acceptance, not accepted membership.
+- Public/default-main confirmed; main unprotected and zero rulesets verified during setup.
+- No blocking hooks or mandatory review/status checks; required later enforcement is deferred in issue #2.
+- No Google Calendar/OpenAI clients or live calls, database, business features or visual design implemented.
+- No independent human review claimed. No setup blockers; teammate invitation acceptance is external.
+- Next: define requirements/acceptance and integration owner; plan API data/auth/tool boundaries.
+- Activate strict main/reviewer enforcement only when the owner authorizes that later milestone.
