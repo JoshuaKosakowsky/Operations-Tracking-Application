@@ -1,0 +1,40 @@
+# Secrets, OAuth client files and tokens
+.env
+.env.*
+!.env.example
+credentials*.json
+client_secret*.json
+token*.json
+secrets/
+*.pem
+*.key
+
+# Local data and artifacts
+data/
+uploads/
+logs/
+results/
+*.db
+*.sqlite*
+*.log
+*.zip
+
+# Environments, caches and builds
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+node_modules/
+test-results/
+playwright-report/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
