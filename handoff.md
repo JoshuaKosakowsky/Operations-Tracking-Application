@@ -1,22 +1,26 @@
 # Current handoff
 
-- Date: 2026-10-27, America/Denver. Agent: Codex.
-- Task: approved repository/documentation/tooling and FastAPI skeleton setup complete.
+- Date: 2026-11-09, America/Denver. Agent: Codex with independent documentation reviewer.
+- Task: commit the approved Project planning and sharing documentation after it was left uncommitted.
 - Repo: [Operations-Tracking-Application](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application).
-- Branch: main; initial code/base commit: 87b14d57ecadbeb73fceeafd458801c6fcbeb5fa.
-- Fresh Git history; Assignment 3 supplied workflow structure only, no app code.
-- Added: AGENTS, CONTRIBUTING, PLAN, README, handoff, supporting docs and issue/PR templates.
-- Added: locked Python/FastAPI tooling, plain title/status page, local health endpoint.
-- Added: Windows/Linux Python CI, Ruff, real Chromium smoke, exact-commit ZIP startup and pip-audit.
-- Local checks: repository safeguards, Ruff, 4 pytest tests, browser refresh/reload/failure recovery passed.
-- Local locked audit: no known vulnerabilities; upstream Starlette/httpx deprecation warning in pytest.
-- Local archive rehearsal and actual GitHub ZIP both passed clean install/normal launcher checks.
-- Initial GitHub CI and all three audit jobs passed; links/details in docs/TEST_RESULTS.md.
-- Final documentation-only publication triggers CI again; final result lives in setup issue #1.
-- All five approved Write invitations sent; initially pending acceptance, not accepted membership.
-- Public/default-main confirmed; main unprotected and zero rulesets verified during setup.
-- No blocking hooks or mandatory review/status checks; required later enforcement is deferred in issue #2.
-- No Google Calendar/OpenAI clients or live calls, database, business features or visual design implemented.
-- No independent human review claimed. No setup blockers; teammate invitation acceptance is external.
-- Next: define requirements/acceptance and integration owner; plan API data/auth/tool boundaries.
-- Activate strict main/reviewer enforcement only when the owner authorizes that later milestone.
+- Branch: codex/project-tracking-docs; pre-handoff base: 87a21bd344c1775dfcc9571879377ca7e49b7469.
+- Commit scope: README.md (public Project entry), PLAN.md (milestones/dependencies), handoff.md (resumption).
+- [Project #2](https://github.com/users/JoshuaKosakowsky/projects/2): Operations Tracking — Development & Evaluation; now public, linked to this repo.
+- Views: Workflow board and Work breakdown table; priorities, native parents and progress are displayed.
+- Statuses: Ready, In Progress, Review, Done, Blocked, Deferred; initial totals 9 / 0 / 0 / 1 / 2 / 1.
+- New parent #3 (access) has native children #6 Maps, #7 Bouncie and #8 Calendar; P0.
+- New parent #4 (LLM) has native children #9 optional class assessment and #10 selected provider; P1.
+- New parent #5 (evaluation) has native children #11 credentials, #12 runbook and #13 sample/live coverage; P1.
+- Native dependencies verified: #5 blocked by #3/#4; #10 blocked by #9. Both have matching blocked labels/statuses.
+- All eleven new issues are open/unassigned with acceptance checks; parent progress is 0/3, 0/2 and 0/3.
+- Existing setup #1 is Done in the Project; governance #2 remains Deferred/P2; main protection was not changed.
+- Project access verified 2026-11-08: public viewing; chha7734-web, jovi1214, mase7919, MSpanny and prse4479 each have Write; owner remains Admin.
+- Independent API readback verified hierarchy, dependencies, labels, owners and optional class-endpoint wording.
+- Use the authenticated in-app GitHub browser; the owner requested this instead of Chrome.
+- App remains a startup skeleton; API provisioning, live calls, feature work and credential delivery were not performed.
+- Earlier review: standard checks passed (inventory, Ruff, 4 pytest; one upstream warning); browser/launch reruns were sandbox-blocked.
+- Published CI/audit evidence remains in docs/TEST_RESULTS.md and setup issue #1; earlier small-code suggestions are secondary.
+- Repository permission lookups still return read for all five; invitation acceptance remains separate. Invitation-list inspection required GitHub reauthentication and was not completed.
+- Next: assign leads and start P0 access investigations #6/#7/#8; assess class endpoint option in #9.
+- Three GitHub Milestone checkpoints were recommended only; no Milestones were created or assigned in that discussion.
+- Validation: git diff --check and python scripts/verify_repo.py passed; independent documentation review found no blockers. Earlier in-app checks verified the Project and 13 items.

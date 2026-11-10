@@ -52,6 +52,14 @@ enforcement are deliberately deferred; see [docs/GITHUB_SETUP.md](docs/GITHUB_SE
 status once published. Keep ownership explicit and report implemented, tested and
 unchecked behavior separately.
 
+Track current work in the public [Development & Evaluation Project](https://github.com/users/JoshuaKosakowsky/projects/2).
+Anyone can view it; editing requires explicit Project Write access. Use **Workflow**
+for status and **Work breakdown** for parent issues, sub-issues, priorities and
+acceptance progress. Immediate priorities are
+[external API access](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/3),
+[LLM endpoint selection](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/4)
+and [professor evaluation](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/5).
+
 ## Planned integrations and private configuration
 
 [docs/INTEGRATIONS.md](docs/INTEGRATIONS.md) records future Google Calendar and

@@ -1,9 +1,15 @@
 # Project plan
 
-Scope approved 2026-10-27 (America/Denver): a new public repository, collaboration
+Initial scope approved 2026-10-27 (America/Denver): a new public repository, collaboration
 documentation, FastAPI startup skeleton, CI and five collaborator invitations.
 No product features or design decisions are included. Assignment 3 is a workflow
 reference only; this repository starts with fresh Git history.
+
+Planning authorized 2026-11-08: create issues, native sub-issues and a GitHub Project
+around the professor's feedback. The proposal is sufficient to begin development;
+the immediate priorities are proving external API access and enabling reproducible
+professor evaluation. Class 9001+ endpoints are an optional development choice.
+This tracking milestone does not establish completed integrations or provider tests.
 
 ## Milestones
 
@@ -12,8 +18,27 @@ reference only; this repository starts with fresh Git history.
 | [SETUP-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/1) | Required docs, safe configuration, plain FastAPI startup, locked environment, relevant local checks and public GitHub CI | Complete / JoshuaKosakowsky with Codex |
 | [SETUP-02](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/1) | Invite chha7734-web, jovi1214, mase7919, MSpanny and prse4479 with Write access; distinguish pending from accepted | Invitations sent; initially pending acceptance / JoshuaKosakowsky |
 | [GOVERNANCE-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/2) | Activate and verify strict main protection and independent-review requirements after owner authorization | Required later; deferred / unassigned |
-| PLAN-01 | Agree on operations-tracking requirements and acceptance, data ownership, integration owner and task allocation | Future planning / unassigned |
-| INTEGRATIONS-01 | Plan Google Calendar authorization/data scope and OpenAI agent behavior, model, costs and safe action permissions | Future planning / unassigned |
+| PLAN-01 | Translate the accepted proposal into feature acceptance, data ownership, integration ownership and task allocation | Future implementation planning / unassigned |
+| [INTEGRATIONS-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/3) | Prove required external-service access: Google Maps [#6](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/6), Bouncie [#7](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/7) and Calendar [#8](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/8), with sanitized tests and evaluator prerequisites | See GitHub / unassigned |
+| [LLM-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/4) | Assess the optional class endpoint route [#9](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/9), then configure and verify the selected provider [#10](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/10) | See GitHub / unassigned |
+| [EVALUATION-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/5) | Prepare private evaluator credentials [#11](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/11), a rehearsed runbook [#12](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/12) and labelled sample/live coverage [#13](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/13) | See GitHub / unassigned |
+
+## Tracking and dependency flow
+
+The [Development & Evaluation Project](https://github.com/users/JoshuaKosakowsky/projects/2)
+is public and linked to this repository. **Workflow** shows status and priority;
+**Work breakdown** shows the native hierarchy, assignees and sub-issue progress.
+Anyone can view the Project. Editing requires explicit Project Write access,
+which is separate from repository access.
+
+API access proof is P0; LLM and evaluator readiness are P1. Native dependencies
+make #10 wait for the endpoint decision in #9, and final evaluation in #5 wait for
+#3 and #4. Evaluation documentation can begin while these prerequisites are open.
+The Project also includes completed setup #1 and deferred governance #2.
+
+Keep each open issue's status label aligned with its Project status. Close parent
+issues only when their sub-issues and stated integrated acceptance are complete.
+GitHub owns live task status; these milestones describe the intended outcomes.
 
 ## Setup acceptance
 
