@@ -7,11 +7,12 @@ See [setup and verification](HERMES_SETUP.md) for the installed connection.
 
 ## Current owner decision
 
-On November 9, 2026, Joshua directed that main protection, required approvals,
-required checks and blocking hooks stay inactive while he is the only active
-human contributor. The reviewer remains available under the direct owner
-review/merge authorization already granted. Its broker's own eligibility checks
-remain in place; those are separate from repository-wide merge restrictions.
+On November 9, 2026, Joshua activated main's GitHub protections: PR/one approval,
+fresh/latest-push review, resolved conversations, current branches and passing
+GitHub Actions `test`, with no bypass exemptions. This supersedes the earlier
+disabled-protection decision. See [current settings](GITHUB_SETUP.md).
+The reviewer remains available under its existing review/merge authorization;
+its broker eligibility checks supplement the GitHub gates. CODEOWNERS is deferred.
 Joshua reviews and authorizes changes to this policy or the reviewer tools.
 Hermes cannot approve or merge changes expanding its own authority.
 

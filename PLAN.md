@@ -58,4 +58,7 @@ is represented as connected just because its inputs can be entered manually.
 and [integrated demo #18](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/18)
 track this build. [Project](https://github.com/users/JoshuaKosakowsky/projects/2)
 owns live task states. Milestone targets remain Nov 16 / Nov 30 / Dec 10; the first
-two are internal targets. Governance #2 remains deferred; safeguards stay disabled.
+two are internal targets. [Governance #2](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/2)
+records active PR/approval/CI/conversation protections and repository security
+settings. CODEOWNERS remains deferred until the team joins; further app development
+and deployment await owner/team direction.

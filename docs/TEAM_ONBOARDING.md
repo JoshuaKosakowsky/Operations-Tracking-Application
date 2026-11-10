@@ -59,9 +59,10 @@ through GitHub. Keep credentials and generated files local. Follow the
 Use focused branches and pull requests with actual validation. The dedicated
 [Hermes reviewer](HERMES_REVIEWER.md) can review and merge eligible PRs, while
 an author implements fixes. Automated JoshKozy review belongs to Joshua; it is
-not another human or teammate's contribution. The owner currently keeps formal
-branch/review safeguards inactive; this does not authorize a contributor to
-publish unrelated work, change permissions or bypass future controls.
+not another human or teammate's contribution. Main now requires approval, fresh
+review, resolved conversations and passing CI on a current branch, with no bypass
+exemptions. See [current protections](GITHUB_SETUP.md). Claim a task before work;
+permission to contribute does not authorize unrelated changes or weaker controls.
 
 ## Report a problem or a completed test
 

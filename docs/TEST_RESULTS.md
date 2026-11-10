@@ -36,6 +36,28 @@ publication also triggers CI; its current result is recorded in the setup issue
 to avoid changing a tested commit just to insert its own SHA. PR event handling
 is configured but no independent human-reviewed PR is claimed during bootstrap.
 
-Artifacts are ignored under `results/`. No live Calendar/OpenAI integration,
-business workflow, authentication or production deployment has been tested.
-No keys or user data were used. Main/reviewer enforcement remains deliberately inactive.
+Artifacts are ignored under `results/`. At this initial setup stage, no live
+Calendar/OpenAI integration, business workflow, authentication or production
+deployment had been tested. No keys or user data were used; main was unprotected.
+
+## Baseline and protection verification - 2026-11-09, America/Denver
+
+PRs [#22](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/pull/22)
+and [#24](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/pull/24)
+delivered the local/hosted job, report/CSV and course-model draft baseline.
+Inventory, Ruff, 33 backend cases and normal-launch desktop/mobile Chromium passed;
+all 10 checks passed on the reviewed application heads. Live course-model requests
+were deliberate and bounded; CI used synthetic responses and made no provider calls.
+
+[Deployment evidence #23](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/23)
+records the Render/Neon launch at `c7e4879204634af5880567fde38ddd00a2f9e4f2`,
+real hosted drafts, edited copying, sign-in/conflict recovery, record retention
+after redeploy/15+ idle minutes, and the exact-commit clean ZIP install. The owner
+tested manual, local AI and hosted flows. Independent human installation and
+physical-phone testing remain unverified; idle access does not prove process suspension.
+
+[Protection evidence #2](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/2)
+and [current settings](GITHUB_SETUP.md) supersede the unprotected setup snapshot.
+Saved GitHub rules were read back through the API; security settings were verified
+after reload. Existing PR #25 reports merging blocked. No destructive push/merge
+test was attempted. These documentation changes do not establish a new deployed build.

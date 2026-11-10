@@ -1,24 +1,23 @@
 # Current handoff
 
 - Date: November 9, 2026, America/Denver. Agent: Codex for Joshua.
-- Session stopped at Joshua's request: development went further than expected before teammate participation.
-- Branch: codex/delivery-evidence; base c7e4879204634af5880567fde38ddd00a2f9e4f2.
-- PR #22 delivers persistent jobs/report/CSV; PR #24 delivers bounded customer/daily AI drafts.
-- Both merged after fixes, all 10 exact-head checks and dedicated Hermes approval; review is automated.
-- No repository branch/reviewer enforcement was activated; owner keeps safeguards disabled.
-- Shared app: https://operations-tracking-mbax6418.onrender.com, free Render + durable Neon in Ohio.
-- Verified deployed application commit: c7e4879204634af5880567fde38ddd00a2f9e4f2; later pins are recorded in issue #23.
-- Desktop customer draft and 390px mobile daily summary used the real course model successfully.
-- Edited text required renewed review and copied exactly; model never sends messages or writes jobs.
-- Hosted sign-in errors, two-tab stale-write rejection and refresh recovery verified; test notes restored.
-- Three fictional jobs survived redeployment; report totals remained correct after 15+ minutes idle.
-- Idle document response was about 3.7 seconds; actual process suspension was not established.
-- Local checks: inventory, Ruff, 33 backend cases and normal-launch desktop/mobile Chromium passed.
-- Exact c7e4879 GitHub ZIP passed fresh extraction/install, no Git/.env, build ID and saved-job/report checks.
-- Joshua approved the manual flow, both local AI flows, then the hosted flow; these are owner tests.
-- Independent human clean installation and physical-phone testing remain unperformed.
-- Course port 9001 uses HTTP: fictional data only. Secrets/data stay outside commits and packages.
-- PR #25 remains open at pre-handoff commit 29e0274; its reviewer was stopped. No further merge or redeployment planned.
-- Host and tested ZIP remain pinned together at c7e4879; local demo remains available for exploration.
-- Next: await Joshua/team direction before more implementation or merges; teammates can claim testing, feedback and presentation work.
-- PLAN.md is the single checklist; #18/#23 hold current integration/deployment evidence.
+- Task: owner-authorized documentation update, commit and push only; no app changes.
+- Branch: codex/delivery-evidence; pre-handoff commit 4b01739db470f04810e9febc1b3159c4b70a2583; PR #25 remains open.
+- Main and deployed app remain c7e4879204634af5880567fde38ddd00a2f9e4f2; no merge/redeployment is requested.
+- PRs #22/#24 delivered jobs/report/CSV and bounded customer/daily AI drafts with dedicated Hermes review.
+- Live app: https://operations-tracking-mbax6418.onrender.com, free Render + durable Neon PostgreSQL in Ohio.
+- Active main ruleset 26916067: PR/one eligible approval, fresh/latest-push review, resolved conversations.
+- Requires current branches and GitHub Actions test (integration 15368); blocks force pushes/deletion; no bypass actors.
+- Secret scanning/push protection verified on; dependency graph and Dependabot alerts enabled. CODEOWNERS deferred.
+- Protection values read back from GitHub API; security settings verified after reload in the preceding settings task.
+- Updated AGENTS, CONTRIBUTING, README, PLAN, setup/reviewer/onboarding/testing docs to remove stale disabled claims.
+- Expanded CONTRIBUTIONS with implementation, Render/Neon launch, verification, automated review, owner testing and protections.
+- Initial setup results remain explicitly historical; current baseline/protection evidence links are added.
+- Earlier baseline checks: inventory/Ruff/33 cases, desktop/mobile Chromium and exact-commit clean ZIP passed.
+- Hosted real drafts, edited copying, sign-in/conflict recovery, redeploy retention and 15+ minute idle access verified.
+- Joshua approved manual, local AI and hosted flows; independent human installation and physical-phone tests remain unverified.
+- Course port 9001 uses HTTP: fictional data only; credentials and local records remain outside Git.
+- Documentation validation: changed-path scope, stale-claim search, local links and diff checks; no app tests or provider calls needed.
+- PR #25 includes reviewer-policy documentation, so Hermes cannot approve/merge this PR under its existing role boundaries.
+- Next: obtain an eligible review for documentation when available; owner/team decides later app work and presentation tasks.
+- PLAN.md is the single outcomes checklist; issues #2/#18/#23 hold governance/integration/deployment evidence.

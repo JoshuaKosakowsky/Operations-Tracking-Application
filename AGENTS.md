@@ -22,20 +22,23 @@ Reading its policy does not select the role or authorize credential switching.
 
 ## Current scope and authorization
 
-- This is an approved fresh repository and FastAPI skeleton. Assignment 3 is a
-  structural reference only; do not copy its code, features, providers or data.
-- No operations-tracking features, UI design, database, Google OAuth connection or
-  OpenAI API calls are authorized by the skeleton milestone.
+- The owner-authorized local/hosted baseline is implemented in PRs #22/#24.
+  Assignment 3 is a structural reference only; do not copy its code or data.
+- Further app development and deployment are paused pending owner/team direction.
+  The November 9 documentation task authorizes documentation commit/push only;
+  it does not resume app development.
 - Initial repository creation, publication, setup commits, CI configuration and
   invitations for the five named collaborators are authorized by the owner.
   Subsequent work follows the user's authorization for that task; do not treat
   this setup authorization as permanent permission to publish unrelated changes.
-- Preferred branches: `codex/<task>`. Use focused PRs and independent review as a
-  team practice. Main protection, required approvals/status checks and blocking
-  Git hooks are intentionally inactive. Never claim they are enforced.
-- Activating strict main/reviewer enforcement is a later required milestone and
-  requires a new owner instruction. On 2026-11-09 the owner explicitly kept
-  enforcement inactive while he is the only active human contributor.
+- Preferred branches: `codex/<task>`. Main is protected by active ruleset 26916067:
+  PR, one eligible approval, fresh/latest-push approval, resolved conversations,
+  up-to-date branch and passing GitHub Actions `test`. Force pushes and deletion
+  are blocked; no actors, including admins, have bypass exemptions.
+- The owner's November 9 activation supersedes the earlier disabled-protection
+  instruction. Never weaken or bypass these gates. CODEOWNERS remains deferred
+  until the team joins. See [current settings](docs/GITHUB_SETUP.md); verify live
+  GitHub state before consequential actions. No local blocking hooks are installed.
 
 ## Creator and reviewer responsibilities
 
@@ -46,7 +49,7 @@ Reading its policy does not select the role or authorize credential switching.
 - An eligible teammate with no PR implementation is the intended human reviewer.
   Joshua also authorized the dedicated Hermes/JoshKozy automated role described
   in CONTRIBUTING; it is not another human. A coding agent cannot switch accounts
-  to claim that role. Mandatory GitHub enforcement remains inactive.
+  to claim that role. GitHub enforces another reviewing account, not another human.
 - Optional style/refactor suggestions are non-blocking. Do not waive unresolved
   correctness, security or required-acceptance findings merely to finish quickly.
 - Fix routine reversible problems directly within the authorized task. Do not

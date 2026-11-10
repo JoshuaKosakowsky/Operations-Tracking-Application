@@ -39,7 +39,10 @@ uv run --locked --group audit python scripts/audit.py
 Audit uses locked versions and reports failures without silently upgrading. CI keeps
 the existing Python Windows/Linux matrix, Ruff, browser, source-ZIP and aggregate
 `test` checks. The separate dependency audit runs on relevant changes and weekly.
-Repository-required reviews/checks remain disabled per owner instruction.
+GitHub requires the aggregate `test` result from GitHub Actions on an up-to-date
+branch, plus fresh approval and resolved review conversations. The separate audit
+is not a required merge status: its path-filtered workflow does not run on every
+PR. See [current protection settings](GITHUB_SETUP.md).
 
 Never run paid calls in startup, health, offline tests or CI. Integration checks
 must be bounded, deliberate and documented separately from synthetic providers.

@@ -5,14 +5,18 @@ and project-specific documentation. Agents also follow [AGENTS.md](AGENTS.md).
 
 ## Current workflow
 
-Task branches, focused PRs and independent review are the intended practice.
-Strict main blocking and mandatory reviewer enforcement are **not active**.
-On 2026-11-09 the owner explicitly kept them inactive while Joshua is the only
-active human contributor. Activation requires a new owner instruction.
-No protected-branch hooks or required checks/approvals are installed. The later
-activation checklist is in [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md).
+Use task branches and focused PRs. On November 9, 2026, Joshua activated main's
+GitHub protections, superseding his earlier instruction to keep them disabled.
+Main requires one eligible approval, fresh approval after new commits, approval
+from someone other than the latest pusher, resolved review conversations, and a
+current branch with the GitHub Actions `test` check passing. Force pushes and
+deletion are blocked; there are no bypass exemptions, including for admins.
+[Current settings and verification](docs/GITHUB_SETUP.md) record the exact rule.
+CODEOWNERS is deferred until the team joins; no local blocking hooks are installed.
 
-1. Claim a substantial work item with concrete acceptance checks. Use one lead
+1. Claim a substantial deliverable, acceptance checks and expected check-in. Move
+   it to In Progress when work actually begins; assignment alone is not progress.
+   Use one lead
    and up to two contributors (maximum three issue assignees). The lead owns
    acceptance and integration. Leave undecided ownership unassigned.
 2. Branch from current `main`: `codex/<task>` for agents; human branches may use
@@ -31,9 +35,9 @@ Creators own their change, test evidence, safe handling and documentation.
 Reviewers inspect correctness and user behavior, not test counts alone.
 GitHub PR authors cannot approve their own PRs. A teammate who did no PR
 implementation is an eligible human reviewer regardless of issue assignment.
-The dedicated automated reviewer exception below is currently available while
-Joshua is the only active human contributor. Review conventions and the local
-reviewer checks do not constitute GitHub server-side enforcement.
+The dedicated automated reviewer role below remains available. GitHub enforces
+another reviewing account; Hermes review is automation for Joshua, not a second
+human. Its local broker checks supplement the active server-side protections.
 
 **Blocking findings:** broken required behavior, unsafe data/credential handling,
 incompatible interfaces, failed relevant checks or unmet acceptance. State how to
@@ -45,8 +49,11 @@ out-of-scope improvements. Label them clearly and keep required work moving.
 After a change to the reviewed code, review the relevant current head again.
 If the original reviewer is unavailable, another independent teammate may verify
 the fixes and document the evidence. Never imply the original reviewer approved
-or silently dismiss an unresolved finding. Formal GitHub dismissal/protection
-procedures will be defined when enforcement is activated.
+or silently dismiss an unresolved finding. Reply with fix/evidence links and obtain
+verification before resolving blocking findings. If an authorized maintainer must
+dismiss a superseded review, record the reason and link the confirming review;
+dismissal must not waive an unresolved defect. New changes require fresh approval.
+If no eligible reviewer is available, leave the PR open rather than weaken a gate.
 
 ## Disclosed Hermes reviewer - JoshKozy
 
@@ -67,7 +74,9 @@ passing CI, unresolved findings/conversations and author holds. Its review is
 its handoff. It cannot approve or merge its own policy, tool or credential changes;
 Joshua handles those owner decisions while no eligible teammate is available.
 No other agent may switch credentials to impersonate this role or self-approve.
-Repository-wide protections remain inactive until a new owner instruction.
+The same GitHub protections apply to this role. Owner authorization of a policy
+change does not bypass required review/checks; an eligible reviewer outside the
+implementation and the restricted Hermes role must review its authority changes.
 
 ## Integration and completion
 
