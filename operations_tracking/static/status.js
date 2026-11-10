@@ -67,6 +67,7 @@ function fillForm(job) {
   renderJobs();
 }
 function renderJobs() {
+  $("empty-filter").textContent = "No jobs for this crew on this date.";
   const filter = $("crew-filter").value;
   const crews = [...new Set(state.jobs.map(job => job.crew))].sort();
   $("crew-filter").replaceChildren(new Option("All crews", ""), ...crews.map(crew => new Option(crew, crew)));
@@ -92,13 +93,30 @@ function renderJobs() {
   $("empty-filter").hidden = !state.jobs.length || visible.length > 0;
 }
 async function loadDay(selectedId) {
-  const data = await api(`/api/jobs?day=${encodeURIComponent(state.day)}`);
+  let data;
+  try { data = await api(`/api/jobs?day=${encodeURIComponent(state.day)}`); }
+  catch (error) {
+    $("job-list").replaceChildren(); $("job-count").textContent = "—";
+    $("empty-day").hidden = true; $("empty-filter").hidden = false;
+    $("empty-filter").textContent = "Couldn’t load this workday. Use Refresh to try again.";
+    clearReport("Report unavailable. Use Refresh to load this workday.");
+    throw error;
+  }
   state.jobs = data.jobs;
   fillForm(state.jobs.find(job => job.id === selectedId) || null);
   if (state.view === "report") await loadReport();
 }
+function clearReport(message) {
+  $("report-totals").replaceChildren(); $("report-rows").replaceChildren();
+  $("export-link").hidden = true; $("export-link").removeAttribute("href");
+  $("empty-report").textContent = message; $("empty-report").hidden = false;
+  $("report-output").hidden = true;
+}
 async function loadReport() {
-  const report = await api(`/api/report?day=${encodeURIComponent(state.day)}`);
+  clearReport("Loading this workday’s saved records…");
+  let report;
+  try { report = await api(`/api/report?day=${encodeURIComponent(state.day)}`); }
+  catch (error) { clearReport("Report unavailable. Use Refresh to load this workday."); throw error; }
   const t = report.totals;
   const metrics = [[`${t.completed} / ${t.jobs}`, "Jobs complete", "saved jobs"],
     [(t.travel_minutes / 60).toFixed(1), "Travel hours", "crew time"],
@@ -116,18 +134,23 @@ async function loadReport() {
     return row;
   }));
   $("empty-report").hidden = report.jobs.length > 0;
+  $("empty-report").textContent = "No saved jobs for this date. Add a job on the Workday tab to begin.";
   $("export-link").href = `/api/export?day=${encodeURIComponent(state.day)}`;
+  $("export-link").hidden = false;
   $("report-output").hidden = true;
 }
 async function run(action) {
   if (state.busy) return;
   state.busy = true;
+  const controls = ["workday-date", "workday-tab", "report-tab", "new-job", "example-day", "refresh", "logout", "discard", "delete-job"];
+  for (const id of controls) $(id).disabled = true;
   $("save-job").disabled = true;
   for (const fieldset of $("job-form").querySelectorAll("fieldset")) fieldset.disabled = true;
   $("workspace").setAttribute("aria-busy", "true");
   try { await action(); } catch (error) { notice(error.message, true); }
   finally {
     state.busy = false; $("save-job").disabled = false;
+    for (const id of controls) $(id).disabled = false;
     for (const fieldset of $("job-form").querySelectorAll("fieldset")) fieldset.disabled = false;
     $("workspace").removeAttribute("aria-busy");
   }
@@ -159,20 +182,29 @@ async function boot() {
     $("workspace").hidden = false;
     $("logout").hidden = !state.session.requires_code;
     $("connection-text").textContent = state.session.hosted ? "Team workspace" : "Local workspace";
+    if (state.dirty) {
+      notice("Signed in. Your unsaved job is preserved. Review it and choose Save job to retry.");
+      return;
+    }
     await loadDay(state.selected?.id);
   });
 }
 
 const parts = Object.fromEntries(new Intl.DateTimeFormat("en-US", {timeZone:"America/Denver",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date()).map(p => [p.type,p.value]));
 state.day = `${parts.year}-${parts.month}-${parts.day}`;
-$("workday-date").value = state.day;
+const requestedDay = new URLSearchParams(window.location.search).get("day");
+$("workday-date").value = requestedDay || state.day;
+if (!$("workday-date").checkValidity()) $("workday-date").value = state.day;
+state.day = $("workday-date").value;
 $("workday-date").addEventListener("change", async () => {
   if (!$("workday-date").checkValidity() || !canLeave()) { $("workday-date").value = state.day; return; }
-  const previous = state.day;
   state.day = $("workday-date").value;
+  const url = new URL(window.location.href); url.searchParams.set("day", state.day);
+  window.history.replaceState(null, "", url);
+  state.jobs = []; fillForm(null);
+  clearReport("Loading this workday’s saved records…");
   await run(async () => {
-    try { await loadDay(); notice(""); }
-    catch (error) { state.day = previous; $("workday-date").value = previous; throw error; }
+    await loadDay(); notice("");
   });
 });
 $("crew-filter").addEventListener("change", renderJobs);
@@ -180,7 +212,7 @@ $("workday-tab").addEventListener("click", () => switchView("workday"));
 $("report-tab").addEventListener("click", () => switchView("report"));
 $("new-job").addEventListener("click", () => { if (canLeave()) { fillForm(null); $("job-title").focus(); }});
 $("discard").addEventListener("click", () => { if (canLeave()) fillForm(state.selected); });
-$("refresh").addEventListener("click", () => { if (canLeave()) boot(); });
+$("refresh").addEventListener("click", () => { if (canLeave()) { markDirty(false); boot(); } });
 $("job-form").addEventListener("input", () => markDirty(true));
 $("job-form").addEventListener("submit", event => {
   event.preventDefault();

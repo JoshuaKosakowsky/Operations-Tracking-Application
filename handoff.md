@@ -13,11 +13,11 @@
 - Local normal-launch browser flow passed: examples, edit, save and report.
 - Backend checks: inventory, Ruff and 16 behavior cases passed on Python 3.12 Windows.
 - Joshua tested the first flow and reported it clear; no independent tester is available.
-- The dedicated Hermes reviewer remains a separate no-code role; review/CI follow publication.
+- PR #22: Hermes requested changes for reauthentication draft loss and stale report dates; both fixed in a focused follow-up.
 - No branch protection or required-review settings changed; owner keeps safeguards disabled.
-- AI controls are disabled and honestly labeled; no model key or live request exists yet.
-- No hosting accounts yet; Render + Neon selected for Python and durable free storage.
-- Normal-launch desktop/mobile Chromium passed: sign-in, create/edit/reload, report/CSV, failed-save recovery and sign-out; exact-ZIP check follows commit.
+- Course port 9001 Qwen chat contract verified by one bounded request (HTTP 200, READY); app AI integration remains pending.
+- Render/Neon accounts ready; free Neon operations database provisioned; no hosted app deployed yet.
+- Chromium regressions passed: new/existing drafts survive relogin, intervening edits still conflict, failed date/report loads hide stale results/CSV; normal desktop/mobile flows pass.
 - Credentials, real data and local SQLite files remain outside Git and exports.
 - Next: finish release checks and eligible review, then bounded AI drafts/hosting configuration.
 - PLAN.md is the single outcomes/evidence checklist; issues #14/#18 track scope and integration.
