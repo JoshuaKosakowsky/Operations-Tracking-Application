@@ -1,25 +1,23 @@
 # Current handoff
 
-- Date: November 9, 2026, America/Denver. Agent: Codex.
-- Task: owner-authorized smallest complete app with local and hosted access.
-- Branch: codex/ai-hosted-demo; base 6efb246e85a17ea8724f7225c7f45baca4108c2b.
-- PR #22 merged after Hermes verified two recovery fixes, all 10 checks, approval and merge gates.
-- First hosted manual flow is live at https://operations-tracking-mbax6418.onrender.com.
-- Free Render/Neon in Ohio; PostgreSQL sign-in, example creation and reporting verified.
-- Automatic deployment is off; repository branch/reviewer safeguards remain disabled.
-- New change adds customer/daily AI drafts from saved data with human review/edit/copy.
-- Course port 9001 Qwen chat contract verified; port 9000 remains reserved for Hermes.
-- Shared persistent limits: 3 attempts/minute and 20/day; 30-second deadline, no retries.
-- Draft requests reject stale data; model cannot write records, use tools or send messages.
-- Local runtime and host share uv.lock; HTTPX promoted to runtime dependency.
-- Render manifest added; production origin can use Render's supplied HTTPS URL.
-- Checks: inventory, Ruff and 33 backend cases passed on Python 3.12 Windows.
-- Normal-launch desktop/mobile Chromium passed, including synthetic AI review/error paths.
-- Screenshot inspection prompted readable mobile table widths and aligned review-checkbox sizing; Chromium recheck and visual inspection passed.
-- Five bounded local app model calls exercised both journeys and corrected ambiguous zero/schedule wording.
-- Latest live outputs match sample progress/totals; Joshua tested both AI flows and reported useful/clear.
-- Owner testing is recorded separately from automated checks; no independent tester available.
-- Course HTTP is unencrypted: use fictional data. Credentials/data stay outside Git/exports.
-- Hosted AI, mobile, idle wake-up, redeploy retention and exact-commit package checks remain pending.
-- Next: eligible review/merge, deploy checked commit, verify hosted behavior and matching ZIP.
-- PLAN.md is the single outcomes/evidence checklist; issues #14/#18 track scope and integration.
+- Date: November 9, 2026, America/Denver. Agent: Codex for Joshua.
+- Task: smallest complete local/hosted GenAI app; first baseline implemented and owner-tested.
+- Branch: codex/delivery-evidence; base c7e4879204634af5880567fde38ddd00a2f9e4f2.
+- PR #22 delivers persistent jobs/report/CSV; PR #24 delivers bounded customer/daily AI drafts.
+- Both merged after fixes, all 10 exact-head checks and dedicated Hermes approval; review is automated.
+- No repository branch/reviewer enforcement was activated; owner keeps safeguards disabled.
+- Shared app: https://operations-tracking-mbax6418.onrender.com, free Render + durable Neon in Ohio.
+- Verified deployed application commit: c7e4879204634af5880567fde38ddd00a2f9e4f2; later pins are recorded in issue #23.
+- Desktop customer draft and 390px mobile daily summary used the real course model successfully.
+- Edited text required renewed review and copied exactly; model never sends messages or writes jobs.
+- Hosted sign-in errors, two-tab stale-write rejection and refresh recovery verified; test notes restored.
+- Three fictional jobs survived redeployment; report totals remained correct after 15+ minutes idle.
+- Idle document response was about 3.7 seconds; actual process suspension was not established.
+- Local checks: inventory, Ruff, 33 backend cases and normal-launch desktop/mobile Chromium passed.
+- Exact c7e4879 GitHub ZIP passed fresh extraction/install, no Git/.env, build ID and saved-job/report checks.
+- Joshua approved the manual flow, both local AI flows, then the hosted flow; these are owner tests.
+- Independent human clean installation and physical-phone testing remain unperformed.
+- Course port 9001 uses HTTP: fictional data only. Secrets/data stay outside commits and packages.
+- Current documentation-only update records acceptance; final host/ZIP identity is checked again when repinned.
+- Next: recruit an independent tester; arrange private evaluator access (#11); prepare slides/video/final freeze (#21).
+- PLAN.md is the single checklist; #18/#23 hold current integration/deployment evidence.

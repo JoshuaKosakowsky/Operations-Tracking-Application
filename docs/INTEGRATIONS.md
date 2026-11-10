@@ -2,8 +2,11 @@
 
 One Python app and `uv.lock` support local SQLite and hosted Neon PostgreSQL.
 The free Render service is <https://operations-tracking-mbax6418.onrender.com>.
-PR #22's manual flow was deployed at `6efb246e85a17ea8724f7225c7f45baca4108c2b`;
-team sign-in, fictional job creation and calculated reporting worked against Neon.
+PRs #22/#24 established the complete manual-job/report/AI baseline. Hosted desktop
+and 390px mobile-sized flows, sign-in/conflict recovery and real course-model drafts
+worked against Neon. Records survived redeployment and access after 15+ idle minutes.
+[Current deployed commit and package evidence](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/23)
+distinguishes actual hosted checks, synthetic failures and owner feedback.
 Local records do not automatically synchronize with the shared database.
 
 The course text service uses port 9001, model
