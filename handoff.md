@@ -1,7 +1,7 @@
 # Current handoff
 
 - Date: November 9, 2026, America/Denver. Agent: Codex for Joshua.
-- Task: smallest complete local/hosted GenAI app; first baseline implemented and owner-tested.
+- Session stopped at Joshua's request: development went further than expected before teammate participation.
 - Branch: codex/delivery-evidence; base c7e4879204634af5880567fde38ddd00a2f9e4f2.
 - PR #22 delivers persistent jobs/report/CSV; PR #24 delivers bounded customer/daily AI drafts.
 - Both merged after fixes, all 10 exact-head checks and dedicated Hermes approval; review is automated.
@@ -18,6 +18,7 @@
 - Joshua approved the manual flow, both local AI flows, then the hosted flow; these are owner tests.
 - Independent human clean installation and physical-phone testing remain unperformed.
 - Course port 9001 uses HTTP: fictional data only. Secrets/data stay outside commits and packages.
-- Current documentation-only update records acceptance; final host/ZIP identity is checked again when repinned.
-- Next: recruit an independent tester; arrange private evaluator access (#11); prepare slides/video/final freeze (#21).
+- PR #25 remains open at pre-handoff commit 29e0274; its reviewer was stopped. No further merge or redeployment planned.
+- Host and tested ZIP remain pinned together at c7e4879; local demo remains available for exploration.
+- Next: await Joshua/team direction before more implementation or merges; teammates can claim testing, feedback and presentation work.
 - PLAN.md is the single checklist; #18/#23 hold current integration/deployment evidence.
