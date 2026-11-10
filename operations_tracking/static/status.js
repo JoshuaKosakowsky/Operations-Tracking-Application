@@ -1,7 +1,7 @@
 "use strict";
 const $ = (id) => document.getElementById(id);
 const labels = {planned: "Planned", en_route: "On the way", on_site: "On site", complete: "Complete"};
-const state = {jobs: [], selected: null, dirty: false, busy: false, view: "workday", day: "", session: null};
+const state = {jobs: [], selected: null, dirty: false, busy: false, view: "workday", day: "", session: null, reportRevision: null};
 const numberFields = ["travel_minutes", "site_minutes", "miles", "modules"];
 
 function node(tag, text, className) {
@@ -41,8 +41,44 @@ function canLeave() {
 function markDirty(value) {
   state.dirty = value;
   $("save-state").textContent = value ? "Unsaved changes" : state.selected ? "Saved" : "Not saved yet";
+  if (value) clearDraft("customer");
+  updateAIControls();
+}
+function clearDraft(kind) {
+  $(`${kind}-output`).hidden = true;
+  $(`${kind}-output`).replaceChildren();
+}
+function updateAIControls() {
+  const available = state.session?.ai_available && state.session?.authenticated;
+  $("customer-draft").disabled = state.busy || !available || !state.selected || state.dirty;
+  $("report-draft").disabled = state.busy || !available || !state.reportRevision || !state.jobs.length;
+  $("customer-ai-status").textContent = !available ? "AI is not configured. Your records and reports still work." :
+    state.dirty || !state.selected ? "Save a job before drafting its update." : "Draft from this saved job. Internal field notes are excluded from customer updates.";
+  $("report-ai-status").textContent = !available ? "AI is not configured. The figures above come directly from saved records." :
+    "Draft from all saved jobs and notes for this date (up to 20 jobs). Check it against the calculated figures above.";
+}
+function displayDraft(kind, draft) {
+  const output = $(`${kind}-output`);
+  const label = node("label", "Review and edit the AI draft");
+  label.htmlFor = `${kind}-draft-text`;
+  const text = node("textarea");
+  text.id = label.htmlFor; text.rows = kind === "customer" ? 6 : 10; text.value = draft.text;
+  const checkLabel = node("label", undefined, "review-check");
+  const check = node("input"); check.type = "checkbox";
+  checkLabel.append(check, node("span", "I checked this draft against the saved records."));
+  const copy = node("button", "Copy reviewed draft", "secondary"); copy.type = "button"; copy.disabled = true;
+  check.addEventListener("change", () => { copy.disabled = !check.checked || !text.value.trim(); });
+  text.addEventListener("input", () => { check.checked = false; copy.disabled = true; });
+  copy.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(text.value); notice("Reviewed draft copied. Nothing has been sent."); }
+    catch { text.focus(); text.select(); notice("Copy is unavailable here. Use your device’s Copy command on the selected text."); }
+  });
+  output.replaceChildren(node("p", `AI draft · saved records for ${draft.day} · ${new Date(draft.generated_at).toLocaleTimeString()}`, "subtle"),
+    label, text, checkLabel, copy, node("p", "May contain errors. This draft is not saved; copy it before leaving or refreshing. Nothing is sent automatically.", "subtle"));
+  output.hidden = false;
 }
 function showLogin() {
+  clearDraft("customer"); clearDraft("report");
   $("login-panel").hidden = false;
   $("workspace").hidden = true;
   $("logout").hidden = true;
@@ -62,7 +98,7 @@ function fillForm(job) {
   $("detail-title").textContent = job ? job.title : "Add a job";
   $("detail-eyebrow").textContent = job ? `${job.crew} · ${timeLabel(job.time)}` : "Ready for the next stop";
   $("delete-job").hidden = !job;
-  $("customer-output").hidden = true;
+  clearDraft("customer");
   markDirty(false);
   renderJobs();
 }
@@ -107,10 +143,11 @@ async function loadDay(selectedId) {
   if (state.view === "report") await loadReport();
 }
 function clearReport(message) {
+  state.reportRevision = null;
   $("report-totals").replaceChildren(); $("report-rows").replaceChildren();
   $("export-link").hidden = true; $("export-link").removeAttribute("href");
   $("empty-report").textContent = message; $("empty-report").hidden = false;
-  $("report-output").hidden = true;
+  clearDraft("report"); updateAIControls();
 }
 async function loadReport() {
   clearReport("Loading this workday’s saved records…");
@@ -137,11 +174,13 @@ async function loadReport() {
   $("empty-report").textContent = "No saved jobs for this date. Add a job on the Workday tab to begin.";
   $("export-link").href = `/api/export?day=${encodeURIComponent(state.day)}`;
   $("export-link").hidden = false;
-  $("report-output").hidden = true;
+  state.reportRevision = report.revision;
+  clearDraft("report"); updateAIControls();
 }
 async function run(action) {
   if (state.busy) return;
   state.busy = true;
+  updateAIControls();
   const controls = ["workday-date", "workday-tab", "report-tab", "new-job", "example-day", "refresh", "logout", "discard", "delete-job"];
   for (const id of controls) $(id).disabled = true;
   $("save-job").disabled = true;
@@ -153,6 +192,7 @@ async function run(action) {
     for (const id of controls) $(id).disabled = false;
     for (const fieldset of $("job-form").querySelectorAll("fieldset")) fieldset.disabled = false;
     $("workspace").removeAttribute("aria-busy");
+    updateAIControls();
   }
 }
 async function switchView(view) {
@@ -208,6 +248,22 @@ $("workday-date").addEventListener("change", async () => {
   });
 });
 $("crew-filter").addEventListener("change", renderJobs);
+$("customer-draft").addEventListener("click", () => {
+  if (!state.selected || state.dirty) return;
+  run(async () => {
+    clearDraft("customer"); notice("Writing a draft from the saved job…");
+    const draft = await api(`/api/drafts/customer/${state.selected.id}?version=${state.selected.version}`, {method:"POST"});
+    displayDraft("customer", draft); notice("Draft ready. Review every claim before copying it.");
+  });
+});
+$("report-draft").addEventListener("click", () => {
+  if (!state.reportRevision) return;
+  run(async () => {
+    clearDraft("report"); notice("Writing a summary from the saved workday…");
+    const draft = await api(`/api/drafts/daily?day=${encodeURIComponent(state.day)}&revision=${state.reportRevision}`, {method:"POST"});
+    displayDraft("report", draft); notice("Summary ready. Compare it with the saved report before copying.");
+  });
+});
 $("workday-tab").addEventListener("click", () => switchView("workday"));
 $("report-tab").addEventListener("click", () => switchView("report"));
 $("new-job").addEventListener("click", () => { if (canLeave()) { fillForm(null); $("job-title").focus(); }});
