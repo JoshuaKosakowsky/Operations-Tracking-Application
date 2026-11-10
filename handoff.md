@@ -1,50 +1,23 @@
 # Current handoff
 
-- Date: 2026-11-09, America/Denver. Agent: Codex.
-- Task: owner-authorized commit/push of planning, Hermes policy and team onboarding documentation to GitHub main.
-- Working branch/base: codex/project-tracking-docs, f689af7; remote main checked at 87a21bd before publication.
-- Preserve the Mac planning commit f689af7; publish this documentation commit as a normal fast-forward, without rewriting history.
-- Owner explicitly requires formal branch/reviewer safeguards to remain disabled; activation requires a new instruction.
-- Added docs/HERMES_REVIEWER.md, docs/HERMES_SETUP.md and docs/TEAM_ONBOARDING.md.
-- README, AGENTS, CONTRIBUTING and PR template link the policy and clarify dedicated role dispatch/automated attribution.
-- Docs/GITHUB_SETUP and PLAN record the owner's inactive-enforcement decision; GitHub issue #2 remains deferred with that decision recorded.
-- Dedicated operations-reviewer/JoshKozy may review, comment, give eligible verdicts and merge checked PRs, but never implement code or approve/merge its own authority changes.
-- Both GitHub accounts belong to Joshua; automated review does not count as another human or teammate contribution.
-- Native milestones: 1 Connections ready (Nov 16 target), 2 First working demo (Nov 30 target), 3 Ready to present and submit (Dec 10 deadline).
-- Canvas deadline: December 10, 2026 at 11:59 p.m. America/Denver; November dates are team planning targets.
-- Project has the plain-language overview and saved Milestone roadmap view; issues #14-#21 add scope, access, demo, usability and presentation/submission work.
-- Existing milestones/dependencies/hierarchy and earlier Mac handoff are preserved; ownership remains unassigned.
-- No product code, workflow execution logic, local reviewer tools/credentials, collaborator permissions or protection settings changed in this publication task.
-- Validation before commit: relative documentation links, repository inventory and git diff --check passed; only documentation/template files are included.
-- GitHub publication and CI are to be verified against the resulting commit; final SHA/results live in GitHub, avoiding a self-referential handoff hash.
-- Actual Hermes review/merge writes remain unexercised until a genuine eligible PR exists; setup smoke was read-only.
-- Next: choose leads for #14/#15, start #20's outline, and agree the first demo before implementation.
-
-## Previous Mac publication handoff (preserved)
-
-# Current handoff
-
-- Date: 2026-11-09, America/Denver. Agent: Codex with independent documentation reviewer.
-- Task: commit the approved Project planning and sharing documentation after it was left uncommitted.
-- Repo: [Operations-Tracking-Application](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application).
-- Branch: codex/project-tracking-docs; pre-handoff base: 87a21bd344c1775dfcc9571879377ca7e49b7469.
-- Commit scope: README.md (public Project entry), PLAN.md (milestones/dependencies), handoff.md (resumption).
-- [Project #2](https://github.com/users/JoshuaKosakowsky/projects/2): Operations Tracking — Development & Evaluation; now public, linked to this repo.
-- Views: Workflow board and Work breakdown table; priorities, native parents and progress are displayed.
-- Statuses: Ready, In Progress, Review, Done, Blocked, Deferred; initial totals 9 / 0 / 0 / 1 / 2 / 1.
-- New parent #3 (access) has native children #6 Maps, #7 Bouncie and #8 Calendar; P0.
-- New parent #4 (LLM) has native children #9 optional class assessment and #10 selected provider; P1.
-- New parent #5 (evaluation) has native children #11 credentials, #12 runbook and #13 sample/live coverage; P1.
-- Native dependencies verified: #5 blocked by #3/#4; #10 blocked by #9. Both have matching blocked labels/statuses.
-- All eleven new issues are open/unassigned with acceptance checks; parent progress is 0/3, 0/2 and 0/3.
-- Existing setup #1 is Done in the Project; governance #2 remains Deferred/P2; main protection was not changed.
-- Project access verified 2026-11-08: public viewing; chha7734-web, jovi1214, mase7919, MSpanny and prse4479 each have Write; owner remains Admin.
-- Independent API readback verified hierarchy, dependencies, labels, owners and optional class-endpoint wording.
-- Use the authenticated in-app GitHub browser; the owner requested this instead of Chrome.
-- App remains a startup skeleton; API provisioning, live calls, feature work and credential delivery were not performed.
-- Earlier review: standard checks passed (inventory, Ruff, 4 pytest; one upstream warning); browser/launch reruns were sandbox-blocked.
-- Published CI/audit evidence remains in docs/TEST_RESULTS.md and setup issue #1; earlier small-code suggestions are secondary.
-- Repository permission lookups still return read for all five; invitation acceptance remains separate. Invitation-list inspection required GitHub reauthentication and was not completed.
-- Next: assign leads and start P0 access investigations #6/#7/#8; assess class endpoint option in #9.
-- Three GitHub Milestone checkpoints were recommended only; no Milestones were created or assigned in that discussion.
-- Validation: git diff --check and python scripts/verify_repo.py passed; independent documentation review found no blockers. Earlier in-app checks verified the Project and 13 items.
+- Date: November 9, 2026, America/Denver. Agent: Codex.
+- Task: owner-authorized smallest complete app with local and hosted access.
+- Branch: codex/dispatch-workflow; base 2d3266a9669bbb51157322c005013879265d99a4.
+- First focused change implements manual scheduling, crew assignment, progress and work records.
+- SQLite local persistence and PostgreSQL schema share one application and lock.
+- Daily report calculates saved crew/job totals; CSV escapes spreadsheet formula prefixes.
+- Versioned updates reject stale writes/deletes; validation rejects invalid input.
+- Shared-code sessions, same-origin writes, body bounds and persistent request limits added.
+- Hosted mode refuses ephemeral SQLite and missing access/origin configuration.
+- UI uses a workday board, editable detail panel and daily report with responsive layouts.
+- Local normal-launch browser flow passed: examples, edit, save and report.
+- Backend checks: inventory, Ruff and 16 behavior cases passed on Python 3.12 Windows.
+- Joshua tested the first flow and reported it clear; no independent tester is available.
+- PR #22: Hermes requested changes for reauthentication draft loss and stale report dates; both fixed in a focused follow-up.
+- No branch protection or required-review settings changed; owner keeps safeguards disabled.
+- Course port 9001 Qwen chat contract verified by one bounded request (HTTP 200, READY); app AI integration remains pending.
+- Render/Neon accounts ready; free Neon operations database provisioned; no hosted app deployed yet.
+- Chromium regressions passed: new/existing drafts survive relogin, intervening edits still conflict, failed date/report loads hide stale results/CSV; normal desktop/mobile flows pass.
+- Credentials, real data and local SQLite files remain outside Git and exports.
+- Next: finish release checks and eligible review, then bounded AI drafts/hosting configuration.
+- PLAN.md is the single outcomes/evidence checklist; issues #14/#18 track scope and integration.
