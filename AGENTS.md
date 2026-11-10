@@ -2,6 +2,15 @@
 
 Follow direct user instructions first. This guide applies throughout this repository.
 
+## Role dispatch
+
+The default role is a contributing agent, including classmates' Hermes coding
+agents. Only Joshua's separately launched `operations-reviewer` profile,
+authenticated as JoshKozy, follows [HERMES_REVIEWER.md](docs/HERMES_REVIEWER.md).
+That profile never edits project files or handoff.md; its posted review is its
+handoff. It may review, comment, give eligible verdicts and merge checked PRs.
+Reading its policy does not select the role or authorize credential switching.
+
 ## Start and finish
 
 1. Read `handoff.md`; inspect branch, recent commits and working-tree changes.
@@ -25,7 +34,8 @@ Follow direct user instructions first. This guide applies throughout this reposi
   team practice. Main protection, required approvals/status checks and blocking
   Git hooks are intentionally inactive. Never claim they are enforced.
 - Activating strict main/reviewer enforcement is a later required milestone and
-  requires owner authorization. Do not activate it during setup.
+  requires a new owner instruction. On 2026-11-09 the owner explicitly kept
+  enforcement inactive while he is the only active human contributor.
 
 ## Creator and reviewer responsibilities
 
@@ -33,9 +43,10 @@ Follow direct user instructions first. This guide applies throughout this reposi
   scope, run relevant checks, inspect safe files and document remaining gaps.
 - Reviewer: independently assess correctness, security, acceptance and the user
   flow; give reproduction and expected behavior for a blocking finding.
-- The author does not self-approve. A teammate with no commits on the PR is the
-  intended reviewer, regardless of issue assignment. These are current team
-  conventions; mandatory enforcement is deferred.
+- An eligible teammate with no PR implementation is the intended human reviewer.
+  Joshua also authorized the dedicated Hermes/JoshKozy automated role described
+  in CONTRIBUTING; it is not another human. A coding agent cannot switch accounts
+  to claim that role. Mandatory GitHub enforcement remains inactive.
 - Optional style/refactor suggestions are non-blocking. Do not waive unresolved
   correctness, security or required-acceptance findings merely to finish quickly.
 - Fix routine reversible problems directly within the authorized task. Do not

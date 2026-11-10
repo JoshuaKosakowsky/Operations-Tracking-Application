@@ -43,6 +43,15 @@ it does not currently prevent merging.
 
 ## Work together
 
+Start with the [team onboarding guide](docs/TEAM_ONBOARDING.md), including
+noncoding tasks, access, board use and submission dates. Joshua's dedicated
+Hermes/JoshKozy reviewer has a [repository role policy](docs/HERMES_REVIEWER.md)
+and [local setup/verification guide](docs/HERMES_SETUP.md).
+
+As directed by the owner on 2026-11-09, formal branch/review safeguards stay
+inactive while Joshua is the only active human contributor. CI and the
+reviewer's local eligibility checks remain available.
+
 Read [CONTRIBUTING.md](CONTRIBUTING.md). Coding agents also read [AGENTS.md](AGENTS.md)
 and [handoff.md](handoff.md). Use focused task branches and PRs, meaningful checks
 and independent review as team practice. Main blocking and mandatory reviewer

@@ -6,7 +6,9 @@ and project-specific documentation. Agents also follow [AGENTS.md](AGENTS.md).
 ## Current workflow
 
 Task branches, focused PRs and independent review are the intended practice.
-Strict main blocking and mandatory reviewer enforcement are **not active yet**.
+Strict main blocking and mandatory reviewer enforcement are **not active**.
+On 2026-11-09 the owner explicitly kept them inactive while Joshua is the only
+active human contributor. Activation requires a new owner instruction.
 No protected-branch hooks or required checks/approvals are installed. The later
 activation checklist is in [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md).
 
@@ -20,16 +22,18 @@ activation checklist is in [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md).
 4. Run relevant checks, inspect the diff, update affected docs and `handoff.md`.
 5. Open a PR describing the outcome, linked task and actual validation. Use
    `Refs #N` for partial work; `Closes #N` only when its acceptance checks are met.
-6. Request an independent review, resolve findings and rerun affected checks.
+6. Request an eligible review, resolve findings and rerun affected checks.
    The approving reviewer or issue lead normally merges after validation.
 
 ## Creator and reviewer
 
 Creators own their change, test evidence, safe handling and documentation.
 Reviewers inspect correctness and user behavior, not test counts alone.
-The author does not self-approve. A teammate with no commits on the PR is eligible
-to review regardless of issue assignment. Current review rules are conventions;
-GitHub will not enforce approval until the later activation milestone.
+GitHub PR authors cannot approve their own PRs. A teammate who did no PR
+implementation is an eligible human reviewer regardless of issue assignment.
+The dedicated automated reviewer exception below is currently available while
+Joshua is the only active human contributor. Review conventions and the local
+reviewer checks do not constitute GitHub server-side enforcement.
 
 **Blocking findings:** broken required behavior, unsafe data/credential handling,
 incompatible interfaces, failed relevant checks or unmet acceptance. State how to
@@ -43,6 +47,27 @@ If the original reviewer is unavailable, another independent teammate may verify
 the fixes and document the evidence. Never imply the original reviewer approved
 or silently dismiss an unresolved finding. Formal GitHub dismissal/protection
 procedures will be defined when enforcement is activated.
+
+## Disclosed Hermes reviewer - JoshKozy
+
+Joshua authorized the separate `operations-reviewer` profile on 2026-11-09.
+Both JoshKozy and JoshuaKosakowsky belong to Joshua. Its reviews are disclosed
+automated review, not another person's review or another teammate contribution.
+The [role policy](docs/HERMES_REVIEWER.md) and
+[setup/verification record](docs/HERMES_SETUP.md) define its boundaries.
+
+This profile may inspect PRs from any author, comment, request changes, approve
+eligible current heads and merge checked PRs into main. It must have performed
+no implementation under any identity and cannot approve a JoshKozy-authored PR.
+It never edits project files, writes patches, commits, pushes, resolves conflicts
+or implements its own suggestions. A separate writer makes corrections.
+
+Before approval/merge it checks the exact current head/base, role eligibility,
+passing CI, unresolved findings/conversations and author holds. Its review is
+its handoff. It cannot approve or merge its own policy, tool or credential changes;
+Joshua handles those owner decisions while no eligible teammate is available.
+No other agent may switch credentials to impersonate this role or self-approve.
+Repository-wide protections remain inactive until a new owner instruction.
 
 ## Integration and completion
 

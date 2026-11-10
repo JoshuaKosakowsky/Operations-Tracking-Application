@@ -9,6 +9,19 @@ permission. Initial setup used owner-authorized bootstrap commits on `main`.
 See [setup evidence](TEST_RESULTS.md) and [issue #1](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/1).
 These are dated observations; check GitHub for current membership/settings.
 
+## Owner decision - 2026-11-09
+
+Joshua explicitly directed that repository-wide branch protection, required
+approvals/status checks and blocking hooks remain inactive while he is the only
+active human contributor. Keep governance issue #2 deferred. A new owner
+instruction is needed before activation; installing the Hermes reviewer does
+not authorize this change.
+
+The dedicated Hermes/JoshKozy profile has local review and merge eligibility
+checks under the [reviewer policy](HERMES_REVIEWER.md). Those checks apply to
+that connection and do not protect main against other connections. Its
+[setup guide](HERMES_SETUP.md) records verified capabilities and remaining gaps.
+
 ## Current approved setup
 
 - Publish the setup and configure type/status labels and issue/PR templates.

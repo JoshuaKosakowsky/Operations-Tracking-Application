@@ -1,5 +1,29 @@
 # Current handoff
 
+- Date: 2026-11-09, America/Denver. Agent: Codex.
+- Task: owner-authorized commit/push of planning, Hermes policy and team onboarding documentation to GitHub main.
+- Working branch/base: codex/project-tracking-docs, f689af7; remote main checked at 87a21bd before publication.
+- Preserve the Mac planning commit f689af7; publish this documentation commit as a normal fast-forward, without rewriting history.
+- Owner explicitly requires formal branch/reviewer safeguards to remain disabled; activation requires a new instruction.
+- Added docs/HERMES_REVIEWER.md, docs/HERMES_SETUP.md and docs/TEAM_ONBOARDING.md.
+- README, AGENTS, CONTRIBUTING and PR template link the policy and clarify dedicated role dispatch/automated attribution.
+- Docs/GITHUB_SETUP and PLAN record the owner's inactive-enforcement decision; GitHub issue #2 remains deferred with that decision recorded.
+- Dedicated operations-reviewer/JoshKozy may review, comment, give eligible verdicts and merge checked PRs, but never implement code or approve/merge its own authority changes.
+- Both GitHub accounts belong to Joshua; automated review does not count as another human or teammate contribution.
+- Native milestones: 1 Connections ready (Nov 16 target), 2 First working demo (Nov 30 target), 3 Ready to present and submit (Dec 10 deadline).
+- Canvas deadline: December 10, 2026 at 11:59 p.m. America/Denver; November dates are team planning targets.
+- Project has the plain-language overview and saved Milestone roadmap view; issues #14-#21 add scope, access, demo, usability and presentation/submission work.
+- Existing milestones/dependencies/hierarchy and earlier Mac handoff are preserved; ownership remains unassigned.
+- No product code, workflow execution logic, local reviewer tools/credentials, collaborator permissions or protection settings changed in this publication task.
+- Validation before commit: relative documentation links, repository inventory and git diff --check passed; only documentation/template files are included.
+- GitHub publication and CI are to be verified against the resulting commit; final SHA/results live in GitHub, avoiding a self-referential handoff hash.
+- Actual Hermes review/merge writes remain unexercised until a genuine eligible PR exists; setup smoke was read-only.
+- Next: choose leads for #14/#15, start #20's outline, and agree the first demo before implementation.
+
+## Previous Mac publication handoff (preserved)
+
+# Current handoff
+
 - Date: 2026-11-09, America/Denver. Agent: Codex with independent documentation reviewer.
 - Task: commit the approved Project planning and sharing documentation after it was left uncommitted.
 - Repo: [Operations-Tracking-Application](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application).
