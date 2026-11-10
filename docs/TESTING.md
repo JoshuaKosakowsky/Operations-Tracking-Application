@@ -1,74 +1,50 @@
-# Testing and evidence
+# Testing
 
-## Standard checks
+Run `python scripts/dev.py --check` for the locked inventory, Ruff and behavioral
+tests. Windows uses the short environment selected by the launcher. Direct `uv`
+commands should use that environment or a separate short-path environment, never
+a `.venv` synced from another operating system.
 
-```powershell
-python scripts/dev.py --check
-```
-
-This uses locked dependencies and runs repository inventory, Ruff and pytest.
-On Windows the launcher uses a short environment path; direct `uv` commands below
-use `.venv` by default. If a long checkout path causes native-package problems,
-set `UV_PROJECT_ENVIRONMENT` to a short absolute directory outside the repository
-before those direct commands. Initial dependency/browser installation needs internet.
-
-## Browser smoke
+## Browser and fresh package
 
 ```powershell
 uv run --locked --group browser python -m playwright install chromium
 uv run --locked --group browser python scripts/browser_smoke.py
-```
-
-On Linux CI uses `playwright install --with-deps chromium`. Real Chromium starts
-the app over loopback, checks title/content, status refresh, reload and an injected
-health failure followed by recovery. Uncaught JavaScript errors, console errors,
-failed requests and HTTP errors fail the check. Artifacts are in `results/browser/`.
-Future controls need their own behavioral checks when implemented.
-
-## Source ZIP
-
-After publishing a commit, substitute its full 40-character SHA:
-
-```powershell
 uv run --locked python scripts/source_zip_check.py --sha FULL_COMMIT_SHA
 ```
 
-The checker downloads GitHub's archive for that exact SHA, checks paths, extracts
-into a temporary directory and installs only locked runtime dependencies into a
-separate environment. It removes inherited provider settings and Python environment
-overrides, then runs the README launcher, checks health/home/static assets and
-records archive SHA-256 and tested SHA under `results/source-zip/`.
-The archive must contain no `.git`, `.env`, credentials, local data or environments.
-It does not exercise future integrations or replace independent final-project acceptance.
+Chromium uses an isolated fictional database and the normal launcher. It covers
+team-code sign-in, examples, creation/editing, reload retention, daily report/CSV,
+failed-save input retention and recovery, mobile widths and sign-out. Desktop and
+390px mobile screenshots are under ignored `results/browser/`. This is automated
+browser evidence, not human usability approval or live provider evidence.
 
-A pre-publication `--archive PATH` run is explicitly a local rehearsal, not proof
-of a GitHub download. PR CI checks the PR head SHA (not the synthetic merge SHA);
-normal Python/browser CI checks GitHub's PR merge ref. Push CI checks the pushed SHA.
-Source-ZIP CI uses no repository checkout or provider secrets to run untrusted code.
+The ZIP check downloads the exact commit, rejects private/generated paths, extracts
+without Git or `.env`, installs the same lock into a new environment, starts through
+README's launcher, verifies the displayed build SHA, saves a fictional job and
+checks its report. `--archive PATH` rehearses a local git archive before publication.
+Git's `export-subst` stamps `operations_tracking/build.txt` in source archives.
 
-## Dependency audit
+## Provider and security checks
 
 ```powershell
 uv run --locked --group audit python scripts/audit.py
 ```
 
-Exports exact locked pins for all dependency groups and uses locked pip-audit
-without fixing/upgrading packages. Platform markers select the current runner's
-dependencies. CI audits Python 3.12 on Windows/Linux and Python 3.14 on Linux on
-dependency/configuration changes, weekly (Monday 13:00 UTC), and manually.
-Findings or incomplete audits fail; network/database errors must not be reported
-as a clean audit. Results are in `results/audit/`. An audit cannot prove there are
-no unknown vulnerabilities.
+Audit uses locked versions and reports failures without silently upgrading. CI keeps
+the existing Python Windows/Linux matrix, Ruff, browser, source-ZIP and aggregate
+`test` checks. The separate dependency audit runs on relevant changes and weekly.
+Repository-required reviews/checks remain disabled per owner instruction.
 
-## CI and evidence boundaries
+Never run paid calls in startup, health, offline tests or CI. Integration checks
+must be bounded, deliberate and documented separately from synthetic providers.
+Keep credentials, real customer/employee records and screenshots of them out of
+Git and artifacts. Use [PLAN.md](../PLAN.md) for acceptance evidence and blockers.
 
-The `test` aggregate succeeds only when Python checks, Ruff, browser and source-ZIP
-jobs succeed. Security audit is a separate workflow with dependency-path filtering.
-There are no required merge checks or approvals yet. Keep status names stable for
-the later enforcement milestone.
+## Human delivery rehearsal
 
-Record actual commands, environment, date, tested commit and expected/actual
-results in TEST_RESULTS. Keep local artifacts ignored. CI uploads bounded failure
-evidence and audit reports; no real credentials/user data are used in these checks.
-Unit tests, mocks and skeleton CI do not establish live Calendar/LLM behavior.
-Formatting is advisory; `uv run --locked ruff format --check .` is optional.
+Give a second person the exact source ZIP and README. Record their identity, OS,
+commit, installation result, workday/AI task results and any help required. The
+owner's successful test and automated clean extraction do not satisfy independent
+testing. Rehearse hosted desktop/mobile access, first request after inactivity,
+provider errors and persistence after a redeploy before declaring delivery ready.

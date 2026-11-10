@@ -1,19 +1,67 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Operations Tracking Application startup skeleton">
-  <link rel="icon" href="data:,">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#244b66">
   <title>Operations Tracking Application</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/assets/app.css">
   <script src="/assets/status.js" defer></script>
 </head>
 <body>
-  <main>
-    <h1>Operations Tracking Application</h1>
-    <p>Project setup is in place. Application features are pending.</p>
-    <p>Server status: <output id="status" aria-live="polite">Checking</output></p>
-    <button id="refresh" type="button">Refresh status</button>
-  </main>
+<a class="skip" href="#workspace">Skip to workday</a>
+<header class="masthead">
+  <div class="brand"><span class="brand-mark" aria-hidden="true">O<span>↗</span></span><div><strong>Operations</strong><span>Field crew workday</span></div></div>
+  <nav aria-label="Main navigation"><button id="workday-tab" class="nav-button active" aria-current="page">Workday</button><button id="report-tab" class="nav-button">Daily report</button></nav>
+  <div class="connection"><span id="connection-text">Connecting…</span><button id="refresh" class="quiet">Refresh</button><button id="logout" class="quiet" hidden>Sign out</button></div>
+</header>
+<div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+<section id="login-panel" class="login-panel" hidden>
+  <h1>Open your team’s workday</h1><p>Enter the access code shared by your project owner.</p>
+  <form id="login-form"><label for="access-code">Team access code</label><input id="access-code" type="password" autocomplete="current-password" maxlength="200" required><button type="submit">Open workspace</button></form>
+  <p class="subtle">This classroom prototype uses one shared team workspace. Use example records while evaluating it.</p>
+</section>
+<main id="workspace" tabindex="-1" hidden>
+  <section class="day-heading">
+    <div><h1 id="page-title">The workday, in one place.</h1><p id="page-description">Plan the stops. Record the work. Keep the next person informed.</p></div>
+    <div class="date-control"><label for="workday-date">Workday <span>Mountain time</span></label><input id="workday-date" type="date" required min="2000-01-01" max="2100-12-31"></div>
+  </section>
+  <div class="workspace-note"><span id="data-mode">Manual records</span><span>Progress comes from your team’s updates. No live GPS or automatic messages.</span></div>
+  <section id="workday-view" class="workday-layout">
+    <aside class="schedule" aria-label="Scheduled jobs">
+      <div class="section-heading"><h2>Today’s jobs <span id="job-count">0</span></h2><button id="new-job">Add job</button></div>
+      <label class="filter-label" for="crew-filter">Filter by crew</label><select id="crew-filter"><option value="">All crews</option></select>
+      <div id="job-list" class="job-list"></div>
+      <div id="empty-day" class="empty-state"><h3>A clear board. A fresh start.</h3><p>Add the first job, or try a fictional workday to see how it fits together.</p><button id="example-day" class="secondary">Try example workday</button><p class="subtle">Adds three clearly labeled example jobs to this date.</p></div>
+      <p id="empty-filter" class="empty-state" hidden>No jobs for this crew on this date.</p>
+    </aside>
+    <section class="job-detail" aria-labelledby="detail-title">
+      <div class="section-heading detail-heading"><div><p id="detail-eyebrow" class="subtle">Ready for the next stop</p><h2 id="detail-title">Add a job</h2></div><span id="save-state" class="subtle">Not saved yet</span></div>
+      <form id="job-form">
+        <fieldset><legend>Job &amp; assignment</legend>
+          <label for="job-title">Job name</label><input id="job-title" name="title" required maxlength="120" placeholder="e.g. Rooftop panel installation">
+          <div class="form-grid"><div><label for="job-customer">Customer label <span>optional</span></label><input id="job-customer" name="customer" maxlength="100" placeholder="Use a fictional label for testing"></div><div><label for="job-crew">Crew</label><input id="job-crew" name="crew" required maxlength="80" placeholder="e.g. Crew A" list="crew-options"><datalist id="crew-options"></datalist></div></div>
+          <label for="job-site">Site / location</label><input id="job-site" name="site" required maxlength="200" placeholder="e.g. North training site">
+          <div class="form-grid"><div><label for="job-time">Scheduled start <span>Mountain time</span></label><input id="job-time" name="time" type="time" required value="08:00"></div><div><label for="job-status">Progress</label><select id="job-status" name="status"><option value="planned">Planned</option><option value="en_route">On the way</option><option value="on_site">On site</option><option value="complete">Complete</option></select></div></div>
+        </fieldset>
+        <fieldset><legend>Work recorded</legend><p class="field-help">Enter totals for this job. Crew minutes are elapsed time, not hours per employee.</p>
+          <div class="form-grid four"><div><label for="job-travel">Travel <span>minutes</span></label><input id="job-travel" name="travel_minutes" type="number" min="0" max="1440" step="1" value="0" required></div><div><label for="job-site-minutes">On site <span>minutes</span></label><input id="job-site-minutes" name="site_minutes" type="number" min="0" max="1440" step="1" value="0" required></div><div><label for="job-miles">Distance <span>miles</span></label><input id="job-miles" name="miles" type="number" min="0" max="2000" step="0.1" value="0" required></div><div><label for="job-modules">Modules <span>installed</span></label><input id="job-modules" name="modules" type="number" min="0" max="5000" step="1" value="0" required></div></div>
+          <label for="job-notes">Field notes <span>optional</span></label><textarea id="job-notes" name="notes" rows="3" maxlength="2000" placeholder="What was completed? What needs attention?"></textarea>
+        </fieldset>
+        <div class="form-actions"><button type="submit" id="save-job">Save job</button><button type="button" id="discard" class="secondary">Discard changes</button><button type="button" id="delete-job" class="danger quiet" hidden>Delete job</button></div>
+      </form>
+      <section class="draft-area" id="customer-draft-area"><h3>Customer update</h3><p id="customer-ai-status">AI is not connected yet. Your job records and daily report work without it.</p><button id="customer-draft" class="secondary" disabled>Draft customer update</button><div id="customer-output" class="draft-output" hidden></div></section>
+    </section>
+  </section>
+  <section id="report-view" hidden>
+    <div class="report-heading"><div><h2>What happened today</h2><p>Calculated from saved jobs for the selected date, across all crews.</p></div><a id="export-link" class="button secondary" download>Download CSV</a></div>
+    <div id="report-totals" class="report-totals"></div>
+    <p class="field-help">Time is manually recorded per crew/job. These totals are not payroll, verified GPS mileage, or individual employee hours.</p>
+    <div class="table-scroll"><table><caption class="sr-only">Saved work for the selected day</caption><thead><tr><th scope="col">Job</th><th scope="col">Crew</th><th scope="col">Progress</th><th scope="col">Travel</th><th scope="col">On site</th><th scope="col">Miles</th><th scope="col">Modules</th></tr></thead><tbody id="report-rows"></tbody></table></div>
+    <p id="empty-report" class="empty-state" hidden>No saved jobs for this date. Add a job on the Workday tab to begin.</p>
+    <section class="draft-area"><h3>Manager’s summary</h3><p id="report-ai-status">AI is not connected yet. The figures above are calculated directly from your saved records.</p><button id="report-draft" class="secondary" disabled>Draft daily summary</button><div id="report-output" class="draft-output" hidden></div></section>
+  </section>
+  <footer><span>Operations Tracking Application · MBAX 6418</span><span id="build">Build: checking…</span></footer>
+</main>
 </body>
 </html>

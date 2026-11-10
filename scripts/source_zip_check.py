@@ -8,7 +8,7 @@ from pathlib import Path, PurePosixPath
 import re
 import subprocess
 import tempfile
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 import zipfile
 
 from startup_support import running_server
@@ -55,7 +55,7 @@ def main() -> None:
         # An isolated environment must not reuse a developer's installed packages,
         # PYTHONPATH, project configuration or credentials.
         for key in list(env):
-            if key.startswith(("OPENAI_", "GOOGLE_", "UV_")) or key in {"VIRTUAL_ENV", "PYTHONPATH", "PYTHONHOME"}:
+            if key.startswith(("OPENAI_", "GOOGLE_", "UV_", "APP_", "TEAM_", "AI_")) or key in {"VIRTUAL_ENV", "PYTHONPATH", "PYTHONHOME", "DATABASE_URL", "RENDER_GIT_COMMIT", "BUILD_SHA"}:
                 env.pop(key, None)
         env["UV_PROJECT_ENVIRONMENT"] = str(clean / "runtime")
         env["UV_LINK_MODE"] = "copy"
@@ -67,8 +67,23 @@ def main() -> None:
                 html = response.read().decode()
             with urlopen(base + "/assets/status.js", timeout=5) as response:
                 javascript = response.read().decode()
-            if "Operations Tracking Application" not in html or "/api/health" not in javascript:
+            if "Operations Tracking Application" not in html or "/api/session" not in javascript:
                 raise RuntimeError("Archive startup page or static asset missing")
+            with urlopen(base + "/api/health", timeout=5) as response:
+                actual = json.load(response)
+            if actual["build"] != args.sha:
+                raise RuntimeError("Running archive build does not match the requested commit")
+            body = {"day":"2026-11-10", "time":"08:00", "title":"Clean ZIP example",
+                    "site":"Fictional site", "crew":"Example crew", "site_minutes":60, "modules":4}
+            request = Request(base + "/api/jobs", data=json.dumps(body).encode(),
+                              headers={"Content-Type":"application/json", "X-OTA-Request":"1"}, method="POST")
+            with urlopen(request, timeout=5) as response:
+                if response.status != 201:
+                    raise RuntimeError("Clean ZIP could not save a job")
+            with urlopen(base + "/api/report?day=2026-11-10", timeout=5) as response:
+                report = json.load(response)
+            if report["totals"]["modules"] != 4 or report["totals"]["modules_per_site_hour"] != 4:
+                raise RuntimeError("Clean ZIP did not produce the expected report")
         record = {
             "sha": args.sha,
             "archive_url": url if not args.archive else None,
@@ -76,6 +91,7 @@ def main() -> None:
             "archive_sha256": hashlib.sha256(archive.read_bytes()).hexdigest(),
             "git_metadata": False, "dotenv": False, "isolated_runtime": True,
             "startup": "passed", "home_and_static_assets": "passed",
+            "running_build_matches": True, "save_and_report": "passed",
         }
         (artifacts / "record.json").write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
         print(json.dumps(record, indent=2))

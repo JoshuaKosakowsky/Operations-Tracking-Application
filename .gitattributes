@@ -16,3 +16,4 @@
 *.png binary
 *.jpg binary
 *.zip binary
+operations_tracking/build.txt export-subst

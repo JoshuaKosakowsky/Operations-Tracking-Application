@@ -1,106 +1,57 @@
-# Project plan
+# Required outcomes and evidence
 
-Initial scope approved 2026-10-27 (America/Denver): a new public repository, collaboration
-documentation, FastAPI startup skeleton, CI and five collaborator invitations.
-No product features or design decisions are included. Assignment 3 is a workflow
-reference only; this repository starts with fresh Git history.
+Scope authorized November 9, 2026: build the smallest complete user-facing GenAI
+app from the MBAX 6418 brief and Group F operations-tracking proposal. The separate
+MSBC 5680 optimization guidelines in the parent folder are not this course's brief.
 
-Planning authorized 2026-11-08: create issues, native sub-issues and a GitHub Project
-around the professor's feedback. The proposal is sufficient to begin development;
-the immediate priorities are proving external API access and enabling reproducible
-professor evaluation. Class 9001+ endpoints are an optional development choice.
-This tracking milestone does not establish completed integrations or provider tests.
+First user: a manager coordinating a small field-service/solar crew's day.
+Scenario: plan a job, assign a crew, record completed work, inspect daily results,
+and review an AI draft to communicate the result without inventing facts.
 
-## Delivery checkpoints - authorized 2026-11-09
+## Required checklist
 
-The owner requested native GitHub milestones and plain-language tracking for the
-whole team. [Project overview](https://github.com/users/JoshuaKosakowsky/projects/2/views/3?pane=info)
-is the team starting point; [Milestone roadmap](https://github.com/users/JoshuaKosakowsky/projects/2/views/3)
-groups every task by checkpoint. Workflow and Work breakdown remain available.
+| Outcome | Current evidence / remaining acceptance |
+|---|---|
+| [x] Create, assign, update and persist jobs | Local normal launcher and browser walkthrough; 16 backend cases including restart, stale edits, date isolation and validation. Source branch `codex/dispatch-workflow`. |
+| [x] Review a daily report and export recorded work | Local browser: 3 fictional jobs, 2 complete, 16 modules after editing; report and CSV behavior covered by tests. |
+| [x] Get first owner feedback | Joshua tried job selection, progress/notes, save and Daily report on November 9: “I tested it; the flow is clear.” This is owner testing, not independent testing. |
+| [ ] Generate useful, grounded GenAI drafts | Customer update and daily manager summary from saved data. Human review required; no tools or external sends. No model access configured; live evidence and output-quality feedback pending. |
+| [ ] Provide authenticated hosted and local access | Free Render Python service + durable Neon PostgreSQL selected; accounts not created. Same source and `uv.lock`; verify desktop/mobile, idle wake-up, failure recovery and retention after deployment. |
+| [ ] Exercise independent clean installation | Automated fresh-ZIP rehearsal is separate. No second person available; invite acceptance and tester/check-in remain unclaimed. |
+| [ ] Deliver matching hosted build and source package | Display exact commit; freeze optional features December 8 at 11:59 p.m. Mountain, 48 hours before submission. Verify fresh final ZIP and host at that commit. |
+| [ ] Complete course materials | Accessible GitHub link; runnable export/README; PPTX/PDF slides; 10–12 minute MP4 presentation; individual peer evaluations. Final submission December 10, 2026, 11:59 p.m. America/Denver. |
 
-| Checkpoint | Date | Outcome / work |
-|---|---|---|
-| [1 - Connections ready](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/milestone/1) | November 16, 2026 - team planning target | Agree the demo/AI behavior (#14), confirm team access (#15), prove service access (#3, #6-#8), and verify the AI connection (#4, #9-#10). |
-| [2 - First working demo](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/milestone/2) | November 30, 2026 - team planning target | Agree screens (#16), implement the useful AI result (#17), and verify the integrated workflow (#18; parent of #16/#17). |
-| [3 - Ready to present and submit](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/milestone/3) | December 10, 2026 - course deadline | Evaluator readiness (#5, #11-#13), fresh-user testing (#19), slides/recording (#20), and final submission checks (#21). |
+## Scope and interface
 
-**Canvas deadline supplied by Joshua: Thursday, December 10, 2026 at 11:59 p.m.
-America/Denver (Mountain Time).** GitHub milestone dates are day-level checkpoints;
-the description and Project overview preserve the exact submission time. The
-first two dates are internal planning targets, not additional course deadlines.
+Required job fields: ID, workday, scheduled local time, name, customer label, site,
+crew, progress, travel minutes, site minutes, miles, modules, notes, version and
+UTC update timestamp. Shared API contract is in [models.py](operations_tracking/models.py)
+and `/docs`. UI uses only server endpoints; no credentials or provider calls in
+browser code. Updates must present the last-read version.
 
-Eight new issues (#14-#21) include plain-language outcomes and acceptance checks.
-Existing work keeps its acceptance; technical issues now start with a short plain-
-language explanation. Native dependencies record prerequisites; #13 now waits for
-#14, and #5 also waits for the integrated demo #18. Ownership remains unassigned
-until the team chooses leads. Setup #1 remains complete; governance #2 remains
-deferred outside the three delivery milestones. No protection or invitation changes
-are authorized or performed by this tracking setup.
+SQLite persists local records; PostgreSQL persists hosted records. One team access
+code grants access to the shared workspace. This is a fictional-data classroom
+prototype, not employee-level access, payroll, a backup service or live dispatch.
 
-The first demo's exact included/deferred features and data contract still need
-team agreement in #14. These milestones authorize tracking and planning, not
-implementation of every feature in the proposal. Sample/live behavior, actual
-validation, evaluator access and independent teammate testing remain distinct.
+Optional/deferred: Google Calendar sync, Bouncie tracking, Maps routes/verified ETAs,
+shift inference, maintenance predictions, automated notifications, payroll and
+individual roles. Existing service-feasibility issues remain open. No integration
+is represented as connected just because its inputs can be entered manually.
 
-## Milestones
+## Claims, check-ins and blockers
 
-| ID | Outcome and acceptance | State / owner |
-|---|---|---|
-| [SETUP-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/1) | Required docs, safe configuration, plain FastAPI startup, locked environment, relevant local checks and public GitHub CI | Complete / JoshuaKosakowsky with Codex |
-| [SETUP-02](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/1) | Invite chha7734-web, jovi1214, mase7919, MSpanny and prse4479 with Write access; distinguish pending from accepted | Invitations sent; initially pending acceptance / JoshuaKosakowsky |
-| [GOVERNANCE-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/2) | Activate and verify strict main protection and independent-review requirements after owner authorization | Required later; deferred / unassigned |
-| [PLAN-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/14) | Agree the first demo, AI behavior, data ownership, integration lead and included/deferred features | See GitHub #14 / unassigned |
-| [INTEGRATIONS-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/3) | Prove required external-service access: Google Maps [#6](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/6), Bouncie [#7](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/7) and Calendar [#8](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/8), with sanitized tests and evaluator prerequisites | See GitHub / unassigned |
-| [LLM-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/4) | Assess the optional class endpoint route [#9](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/9), then configure and verify the selected provider [#10](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/10) | See GitHub / unassigned |
-| [EVALUATION-01](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/5) | Prepare private evaluator credentials [#11](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/11), a rehearsed runbook [#12](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/12) and labelled sample/live coverage [#13](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/13) | See GitHub / unassigned |
+- **Codex for Joshua — underway:** implement and coordinate the first job/report
+  flow, then AI/hosting. First check-in delivered via local demo; next check-in is
+  CI and dedicated reviewer findings on the focused PR.
+- **Joshua — first owner test completed:** found the core flow clear. Feedback on
+  later AI/hosted integrations must be collected separately.
+- **Independent tester / other contributors — unclaimed:** no accepted availability
+  or check-in. Assignment alone must not be reported as work underway.
+- **Live AI / hosted URL — blocked:** owner confirmed no model access or hosting
+  accounts configured. Do not turn synthetic tests into live-service evidence.
 
-## Tracking and dependency flow
-
-The [Development & Evaluation Project](https://github.com/users/JoshuaKosakowsky/projects/2)
-is public and linked to this repository. **Workflow** shows status and priority;
-**Work breakdown** shows the native hierarchy, assignees and sub-issue progress.
-Anyone can view the Project. Editing requires explicit Project Write access,
-which is separate from repository access.
-
-API access proof is P0; LLM and evaluator readiness are P1. Native dependencies
-make #10 wait for the endpoint decision in #9, and final evaluation in #5 wait for
-#3 and #4. Evaluation documentation can begin while these prerequisites are open.
-The Project also includes completed setup #1 and deferred governance #2.
-
-Keep each open issue's status label aligned with its Project status. Close parent
-issues only when their sub-issues and stated integrated acceptance are complete.
-GitHub owns live task status; these milestones describe the intended outcomes.
-
-## Setup acceptance
-
-- Required root documents, templates, developer tooling and environment lock exist.
-- Plain page and `/api/health` start without keys, `.env`, Git metadata or developer files.
-- Python checks run on Windows/Linux; CI also exercises the documented newer runtime.
-- Chromium smoke covers load, status refresh, reload and health error recovery.
-- Exact-commit GitHub ZIP installs into an isolated environment and launches using README.
-- Ruff uses a small correctness rule set; formatting remains advisory.
-- Locked dependency audit runs on dependency changes, weekly and by manual dispatch.
-- Public repository/`main`, collaborator invitation state, CI results and intentionally
-  absent enforcement are verified and recorded without secrets.
-
-## Later enforcement requirement
-
-Owner decision reconfirmed 2026-11-09: keep formal enforcement inactive while
-Joshua is the only active human contributor. A new owner instruction is required
-before activation. The dedicated Hermes reviewer is a disclosed automated role;
-its [policy](docs/HERMES_REVIEWER.md) and [setup record](docs/HERMES_SETUP.md)
-are separate from repository-wide safeguards. See [team onboarding](docs/TEAM_ONBOARDING.md).
-
-GOVERNANCE-01 is deliberately separate from working CI. Its acceptance includes
-reviewing the future policy, enabling it only with authorization, and verifying
-live server behavior. See [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md).
-
-## Future feature work
-
-Define concrete user needs before choosing screens, database models, event-write
-permissions, agent tools or automation. Name an integration owner and agree on
-shared contracts before contributors implement dependent features. The first demo scope is decided in #14; implementation planning is tracked by
-#16-#18. Their creation does not establish approved detailed behavior or completion.
-
-After publication, GitHub issues own live task states. Reconcile milestone
-acceptance against actual evidence; component checks do not complete a parent flow.
+[Scope #14](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/14)
+and [integrated demo #18](https://github.com/JoshuaKosakowsky/Operations-Tracking-Application/issues/18)
+track this build. [Project](https://github.com/users/JoshuaKosakowsky/projects/2)
+owns live task states. Milestone targets remain Nov 16 / Nov 30 / Dec 10; the first
+two are internal targets. Governance #2 remains deferred; safeguards stay disabled.

@@ -1,31 +1,28 @@
-# Planned integrations
+# Integration status
 
-Google Calendar and an OpenAI API agent are approved directions for this project.
-FastAPI is approved as the server foundation. This milestone implements no provider
-clients, OAuth flows, tools, calendar reads/writes or LLM calls; no credentials are needed.
+The first app uses manual job input and a local SQLite database. The same schema
+supports PostgreSQL for hosting, but no remote database has yet been provisioned
+or verified. Shared fields live in `operations_tracking/models.py`.
 
-## Decisions required before implementation
+GenAI is required for final acceptance. The planned first behaviors are a customer
+update for one saved job and a manager summary for one day's saved records. Both
+are drafts for human review, with no tools, record mutations or external sends.
+The owner confirmed no model access is configured. Do not describe disabled
+controls, synthetic tests or ordinary arithmetic as a working GenAI integration.
 
-| Integration | Decisions still open |
-|---|---|
-| Google Calendar | User needs, account ownership, read/write operations, narrow OAuth scopes, consent, token storage/refresh/revocation, timezone handling and test account |
-| OpenAI | Agent tasks and tools, model, API choice, conversation/data retention, bounded usage/timeouts, cost controls and human authorization for external actions |
-| Shared | App authentication, per-user permissions, data model/storage, safe logging, failure recovery and measurable acceptance |
+Google Calendar, Maps and Bouncie remain deferred feasibility investigations in
+issues #3 and #6–#8. No credentials, live requests, tracking, route/ETA calculation,
+calendar writes or customer messages have been implemented or verified.
 
-Keep credentials and provider calls on the server; browser code receives only
-safe application data. Default startup, health checks and CI must work without
-credentials or paid calls. External actions must follow the user's explicit
-scope and permissions. Use synthetic fixtures for offline tests; record separately
-what live integration checks actually ran.
+Hosting choice: free Render Python web service plus free Neon PostgreSQL, avoiding
+Render's ephemeral local filesystem and 30-day free database expiry. Account setup
+and a live deployment are pending. Provider limits must be rechecked at deployment.
 
-An OpenAI API integration uses API credentials, distinct from this repository's
-GitHub access. Selecting a model or provisioning access is future work. The blank
-settings in `.env.example` are placeholders and are not currently consumed.
+References checked November 9, 2026:
+- [Render free-service limits](https://render.com/docs/free)
+- [Render FastAPI deployment](https://render.com/docs/deploy-fastapi)
+- [Neon plan limits](https://neon.com/docs/introduction/plans)
+- [OpenAI text generation](https://developers.openai.com/api/docs/guides/text)
 
-Official references inspected during setup:
-
-- [OpenAI API authentication and server-side key handling](https://developers.openai.com/api/reference/overview)
-- [Google Calendar OAuth scopes](https://developers.google.com/workspace/calendar/api/auth)
-- [FastAPI first steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
-
-Recheck provider documentation when implementing; these notes are not a frozen API contract.
+Free hosting does not include external AI credits. Secrets belong only in the
+host's secret settings or ignored local `.env`, never the GitHub repository.
