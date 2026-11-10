@@ -18,6 +18,11 @@ team-code sign-in, examples, creation/editing, reload retention, daily report/CS
 failed-save input retention and recovery, mobile widths and sign-out. Desktop and
 390px mobile screenshots are under ignored `results/browser/`. This is automated
 browser evidence, not human usability approval or live provider evidence.
+AI UI tests substitute synthetic API responses; provider tests use HTTPX mock
+transport. They cover unavailable/truncated/malformed responses, total timeout,
+stale data, authentication, input bounds and durable usage limits. CI never calls
+the course model. The browser also checks review-before-copy, draft editing,
+plain-text rendering, unsaved-job gating and failed-generation recovery.
 
 The ZIP check downloads the exact commit, rejects private/generated paths, extracts
 without Git or `.env`, installs the same lock into a new environment, starts through

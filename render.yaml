@@ -1,0 +1,27 @@
+# One codebase and lock. Keep secrets in Render's environment settings.
+services:
+  - type: web
+    name: operations-tracking-mbax6418
+    runtime: python
+    plan: free
+    region: ohio
+    branch: main
+    autoDeployTrigger: off
+    buildCommand: python -m pip install uv==0.12.19 && uv sync --locked --no-dev --python 3.12
+    startCommand: uv run --locked --no-dev python -m uvicorn operations_tracking.app:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.14
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: TEAM_ACCESS_CODE
+        generateValue: true
+      - key: AI_BASE_URL
+        value: http://dobolyi.com:9001/v1
+      - key: AI_MODEL
+        value: cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit
+      - key: AI_API_KEY
+        sync: false

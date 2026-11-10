@@ -2,22 +2,24 @@
 
 - Date: November 9, 2026, America/Denver. Agent: Codex.
 - Task: owner-authorized smallest complete app with local and hosted access.
-- Branch: codex/dispatch-workflow; base 2d3266a9669bbb51157322c005013879265d99a4.
-- First focused change implements manual scheduling, crew assignment, progress and work records.
-- SQLite local persistence and PostgreSQL schema share one application and lock.
-- Daily report calculates saved crew/job totals; CSV escapes spreadsheet formula prefixes.
-- Versioned updates reject stale writes/deletes; validation rejects invalid input.
-- Shared-code sessions, same-origin writes, body bounds and persistent request limits added.
-- Hosted mode refuses ephemeral SQLite and missing access/origin configuration.
-- UI uses a workday board, editable detail panel and daily report with responsive layouts.
-- Local normal-launch browser flow passed: examples, edit, save and report.
-- Backend checks: inventory, Ruff and 16 behavior cases passed on Python 3.12 Windows.
-- Joshua tested the first flow and reported it clear; no independent tester is available.
-- PR #22: Hermes requested changes for reauthentication draft loss and stale report dates; both fixed in a focused follow-up.
-- No branch protection or required-review settings changed; owner keeps safeguards disabled.
-- Course port 9001 Qwen chat contract verified by one bounded request (HTTP 200, READY); app AI integration remains pending.
-- Render/Neon accounts ready; free Neon operations database provisioned; no hosted app deployed yet.
-- Chromium regressions passed: new/existing drafts survive relogin, intervening edits still conflict, failed date/report loads hide stale results/CSV; normal desktop/mobile flows pass.
-- Credentials, real data and local SQLite files remain outside Git and exports.
-- Next: finish release checks and eligible review, then bounded AI drafts/hosting configuration.
+- Branch: codex/ai-hosted-demo; base 6efb246e85a17ea8724f7225c7f45baca4108c2b.
+- PR #22 merged after Hermes verified two recovery fixes, all 10 checks, approval and merge gates.
+- First hosted manual flow is live at https://operations-tracking-mbax6418.onrender.com.
+- Free Render/Neon in Ohio; PostgreSQL sign-in, example creation and reporting verified.
+- Automatic deployment is off; repository branch/reviewer safeguards remain disabled.
+- New change adds customer/daily AI drafts from saved data with human review/edit/copy.
+- Course port 9001 Qwen chat contract verified; port 9000 remains reserved for Hermes.
+- Shared persistent limits: 3 attempts/minute and 20/day; 30-second deadline, no retries.
+- Draft requests reject stale data; model cannot write records, use tools or send messages.
+- Local runtime and host share uv.lock; HTTPX promoted to runtime dependency.
+- Render manifest added; production origin can use Render's supplied HTTPS URL.
+- Checks: inventory, Ruff and 33 backend cases passed on Python 3.12 Windows.
+- Normal-launch desktop/mobile Chromium passed, including synthetic AI review/error paths.
+- Screenshot inspection prompted readable mobile table widths and aligned review-checkbox sizing; Chromium recheck and visual inspection passed.
+- Five bounded local app model calls exercised both journeys and corrected ambiguous zero/schedule wording.
+- Latest live outputs match sample progress/totals; Joshua tested both AI flows and reported useful/clear.
+- Owner testing is recorded separately from automated checks; no independent tester available.
+- Course HTTP is unencrypted: use fictional data. Credentials/data stay outside Git/exports.
+- Hosted AI, mobile, idle wake-up, redeploy retention and exact-commit package checks remain pending.
+- Next: eligible review/merge, deploy checked commit, verify hosted behavior and matching ZIP.
 - PLAN.md is the single outcomes/evidence checklist; issues #14/#18 track scope and integration.

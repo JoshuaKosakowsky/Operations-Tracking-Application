@@ -18,6 +18,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import delete, insert, select, update, text
 from sqlalchemy.exc import SQLAlchemyError
 
+from . import ai
 from .models import JobInput, JobUpdate, Login
 from .security import COOKIE, BoundRequestSize, authenticated, consume, digest, require_access
 from .settings import Settings
@@ -26,7 +27,7 @@ from .store import connect, jobs, metadata, sessions
 STATIC = Path(__file__).parent / "static"
 
 
-def create_app(settings=None):
+def create_app(settings=None, ai_transport=None):
     @asynccontextmanager
     async def lifespan(app):
         app.state.settings = settings or Settings.load()
@@ -93,7 +94,7 @@ def create_app(settings=None):
     def session(request: Request):
         return {"authenticated": authenticated(request), "requires_code": bool(app.state.settings.access_code),
                 "hosted": app.state.settings.production, "build": app.state.settings.build,
-                "timezone": "America/Denver", "ai_available": False}
+                "timezone": "America/Denver", "ai_available": app.state.settings.ai_available}
 
     @app.post("/api/login")
     def login(body: Login, response: Response):
@@ -123,7 +124,7 @@ def create_app(settings=None):
     def for_day(day):
         with app.state.engine.connect() as connection:
             return [dict(row) for row in connection.execute(
-                select(jobs).where(jobs.c.day == day.isoformat()).order_by(jobs.c.time, jobs.c.title)
+                select(jobs).where(jobs.c.day == day.isoformat()).order_by(jobs.c.time, jobs.c.title, jobs.c.id)
             ).mappings()]
 
     def job_values(body):
@@ -173,7 +174,40 @@ def create_app(settings=None):
         total["jobs"] = len(records)
         total["modules_per_site_hour"] = round(total["modules"] / (total["site_minutes"] / 60), 2) if total["site_minutes"] else None
         return {"day": day.isoformat(), "totals": total, "jobs": records,
+                "revision": ai.revision(records),
                 "basis": "Manually recorded crew time, not individual employee hours or payroll."}
+
+    async def draft(records, kind, reload_records):
+        if not app.state.settings.ai_available:
+            raise HTTPException(503, "AI is not configured. Job records and reports still work.")
+        data = ai.source_data(records, kind)
+        # Shared, durable limits bound total team usage, including failed provider attempts.
+        consume(app.state.engine, "ai-minute", 3, 60)
+        consume(app.state.engine, "ai-day", 20, 86400)
+        result = await ai.generate(app.state.settings, data, kind, transport=ai_transport)
+        if ai.revision(reload_records()) != ai.revision(records):
+            raise HTTPException(409, "The saved records changed while drafting. Refresh and request a new draft.")
+        return {"text": result, "day": records[0]["day"], "revision": ai.revision(records),
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+                "source": [{"id": row["id"], "version": row["version"]} for row in records]}
+
+    @app.post("/api/drafts/customer/{job_id}", dependencies=[Depends(require_access)])
+    async def customer_draft(job_id: UUID, version: int = Query(ge=1)):
+        def current():
+            with app.state.engine.connect() as connection:
+                return [dict(row) for row in connection.execute(select(jobs).where(
+                    jobs.c.id == str(job_id))).mappings()]
+        records = current()
+        if not records or records[0]["version"] != version:
+            raise HTTPException(409, "This job changed or was removed. Refresh before requesting a draft.")
+        return await draft(records, "customer", current)
+
+    @app.post("/api/drafts/daily", dependencies=[Depends(require_access)])
+    async def daily_draft(day: date, revision: str = Query(pattern=r"^[0-9a-f]{64}$")):
+        records = for_day(day)
+        if ai.revision(records) != revision:
+            raise HTTPException(409, "This workday changed. Refresh the report before requesting a draft.")
+        return await draft(records, "daily", lambda: for_day(day))
 
     @app.get("/api/export", dependencies=[Depends(require_access)])
     def export(day: date):

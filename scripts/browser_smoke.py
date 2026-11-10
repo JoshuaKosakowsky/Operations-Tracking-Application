@@ -26,11 +26,20 @@ def main():
         env["APP_ENV"] = "local"
         env["TEAM_ACCESS_CODE"] = "browser-test-only-shared-code"
         env["OPENAI_API_KEY"] = ""
+        env["PYTHON_DOTENV_DISABLED"] = "1"
+        env["AI_BASE_URL"] = "https://model.invalid/v1"
+        env["AI_MODEL"] = "browser-synthetic-model"
+        env["AI_API_KEY"] = "browser-test-only-key"
         with running_server(ROOT, Path(sys.executable), ARTIFACTS, launcher=True, env=env) as base, sync_playwright() as pw:
             browser = pw.chromium.launch()
             context = browser.new_context(viewport={"width": 1440, "height": 1000}, accept_downloads=True)
             context.tracing.start(screenshots=True, snapshots=True, sources=True)
             page = context.new_page()
+            # UI response substitution only; provider parsing/limits use MockTransport in test_ai.py.
+            # No real provider requests occur in this browser rehearsal.
+            page.route("**/api/drafts/**", lambda route: route.fulfill(json={
+                "text": "Synthetic draft: 8 modules recorded. <script>Never execute this text</script>",
+                "day": "2026-11-10", "generated_at": "2026-11-10T20:00:00Z"}))
             page.on("pageerror", lambda error: errors.append(str(error)))
             try:
                 page.goto(base, wait_until="networkidle")
@@ -53,6 +62,23 @@ def main():
                 page.get_by_role("button", name="Save job", exact=True).click()
                 expect(page.locator("#save-state")).to_have_text("Saved")
                 expect(page.locator("#job-count")).to_have_text("4")
+                page.get_by_role("button", name="Draft customer update", exact=True).click()
+                expect(page.locator("#customer-draft-text")).to_have_value("Synthetic draft: 8 modules recorded. <script>Never execute this text</script>")
+                expect(page.get_by_role("button", name="Copy reviewed draft", exact=True)).to_be_disabled()
+                page.get_by_label("I checked this draft against the saved records.", exact=True).check()
+                expect(page.get_by_role("button", name="Copy reviewed draft", exact=True)).to_be_enabled()
+                page.locator("#customer-draft-text").fill("Reviewed synthetic draft")
+                expect(page.get_by_role("button", name="Copy reviewed draft", exact=True)).to_be_disabled()
+                # A failed generation must remove the previous draft, with records still usable.
+                page.route("**/api/drafts/customer/**", lambda route: route.fulfill(status=504, json={"detail":"The model took too long. No draft was saved or sent."}))
+                page.get_by_role("button", name="Draft customer update", exact=True).click()
+                expect(page.locator("#notice")).to_contain_text("model took too long")
+                expect(page.locator("#customer-output")).to_be_hidden()
+                page.unroute("**/api/drafts/customer/**")
+                page.get_by_label("Field notes optional", exact=True).fill("Unsaved test note")
+                expect(page.get_by_role("button", name="Draft customer update", exact=True)).to_be_disabled()
+                page.once("dialog", lambda dialog: dialog.accept())
+                page.get_by_role("button", name="Discard changes", exact=True).click()
                 page.reload(wait_until="networkidle")
                 expect(page.locator("#job-count")).to_have_text("4")
                 # An initial report failure must not advertise an export.
@@ -65,6 +91,8 @@ def main():
                 expect(page.locator("#report-rows")).to_contain_text("Browser verification job")
                 expect(page.locator(".total").filter(has_text="Modules installed").locator("strong")).to_have_text("20")
                 expect(page.locator(".total").filter(has_text="On-site hours").locator("strong")).to_have_text("6.0")
+                page.get_by_role("button", name="Draft daily summary", exact=True).click()
+                expect(page.locator("#report-draft-text")).to_have_value("Synthetic draft: 8 modules recorded. <script>Never execute this text</script>")
                 with page.expect_download() as download:
                     page.get_by_role("link", name="Download CSV").click()
                 assert "Browser verification job" in Path(download.value.path()).read_text()
@@ -152,6 +180,8 @@ def main():
                 assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
                 page.get_by_role("button", name="Daily report", exact=True).click()
                 expect(page.locator("#report-view")).to_be_visible()
+                page.get_by_role("button", name="Draft daily summary", exact=True).click()
+                expect(page.locator("#report-output")).to_be_visible()
                 page.screenshot(path=str(ARTIFACTS / "mobile-report.png"), full_page=True)
                 assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
                 page.get_by_role("button", name="Sign out", exact=True).click()
