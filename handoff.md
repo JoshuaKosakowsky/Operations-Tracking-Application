@@ -15,6 +15,7 @@
 - Render manifest added; production origin can use Render's supplied HTTPS URL.
 - Checks: inventory, Ruff and 33 backend cases passed on Python 3.12 Windows.
 - Normal-launch desktop/mobile Chromium passed, including synthetic AI review/error paths.
+- Screenshot inspection prompted readable mobile table widths and aligned review-checkbox sizing; Chromium recheck and visual inspection passed.
 - Five bounded local app model calls exercised both journeys and corrected ambiguous zero/schedule wording.
 - Latest live outputs match sample progress/totals; Joshua tested both AI flows and reported useful/clear.
 - Owner testing is recorded separately from automated checks; no independent tester available.
