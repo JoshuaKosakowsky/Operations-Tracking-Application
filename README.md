@@ -101,5 +101,9 @@ and independent testing remain distinct from automated checks.
 · [Contributing](CONTRIBUTING.md) · [Agent rules](AGENTS.md)
 · [Hermes reviewer policy](docs/HERMES_REVIEWER.md) · [Hermes setup](docs/HERMES_SETUP.md)
 
-Branch/reviewer enforcement remains disabled per the owner's instruction. Existing
-CI and eligible review remain the delivery practice. No license has been selected.
+Main requires reviewed PRs, fresh approval, resolved conversations and passing
+GitHub Actions `test` on an up-to-date branch. Force pushes/deletion are blocked
+with no bypass exemptions. [Repository protections](docs/GITHUB_SETUP.md) record
+the settings; [contributions](docs/CONTRIBUTIONS.md) credit the implementation,
+Render/Neon launch, testing and review work. CODEOWNERS is deferred until the team
+joins. No license has been selected.

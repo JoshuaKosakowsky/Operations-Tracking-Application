@@ -1,25 +1,23 @@
 # Current handoff
 
-- Date: November 9, 2026, America/Denver. Agent: Codex.
-- Task: owner-authorized smallest complete app with local and hosted access.
-- Branch: codex/ai-hosted-demo; base 6efb246e85a17ea8724f7225c7f45baca4108c2b.
-- PR #22 merged after Hermes verified two recovery fixes, all 10 checks, approval and merge gates.
-- First hosted manual flow is live at https://operations-tracking-mbax6418.onrender.com.
-- Free Render/Neon in Ohio; PostgreSQL sign-in, example creation and reporting verified.
-- Automatic deployment is off; repository branch/reviewer safeguards remain disabled.
-- New change adds customer/daily AI drafts from saved data with human review/edit/copy.
-- Course port 9001 Qwen chat contract verified; port 9000 remains reserved for Hermes.
-- Shared persistent limits: 3 attempts/minute and 20/day; 30-second deadline, no retries.
-- Draft requests reject stale data; model cannot write records, use tools or send messages.
-- Local runtime and host share uv.lock; HTTPX promoted to runtime dependency.
-- Render manifest added; production origin can use Render's supplied HTTPS URL.
-- Checks: inventory, Ruff and 33 backend cases passed on Python 3.12 Windows.
-- Normal-launch desktop/mobile Chromium passed, including synthetic AI review/error paths.
-- Screenshot inspection prompted readable mobile table widths and aligned review-checkbox sizing; Chromium recheck and visual inspection passed.
-- Five bounded local app model calls exercised both journeys and corrected ambiguous zero/schedule wording.
-- Latest live outputs match sample progress/totals; Joshua tested both AI flows and reported useful/clear.
-- Owner testing is recorded separately from automated checks; no independent tester available.
-- Course HTTP is unencrypted: use fictional data. Credentials/data stay outside Git/exports.
-- Hosted AI, mobile, idle wake-up, redeploy retention and exact-commit package checks remain pending.
-- Next: eligible review/merge, deploy checked commit, verify hosted behavior and matching ZIP.
-- PLAN.md is the single outcomes/evidence checklist; issues #14/#18 track scope and integration.
+- Date: November 9, 2026, America/Denver. Agent: Codex for Joshua.
+- Task: owner-authorized documentation update, commit and push only; no app changes.
+- Branch: codex/delivery-evidence; pre-handoff commit 4b01739db470f04810e9febc1b3159c4b70a2583; PR #25 remains open.
+- Main and deployed app remain c7e4879204634af5880567fde38ddd00a2f9e4f2; no merge/redeployment is requested.
+- PRs #22/#24 delivered jobs/report/CSV and bounded customer/daily AI drafts with dedicated Hermes review.
+- Live app: https://operations-tracking-mbax6418.onrender.com, free Render + durable Neon PostgreSQL in Ohio.
+- Active main ruleset 26916067: PR/one eligible approval, fresh/latest-push review, resolved conversations.
+- Requires current branches and GitHub Actions test (integration 15368); blocks force pushes/deletion; no bypass actors.
+- Secret scanning/push protection verified on; dependency graph and Dependabot alerts enabled. CODEOWNERS deferred.
+- Protection values read back from GitHub API; security settings verified after reload in the preceding settings task.
+- Updated AGENTS, CONTRIBUTING, README, PLAN, setup/reviewer/onboarding/testing docs to remove stale disabled claims.
+- Expanded CONTRIBUTIONS with implementation, Render/Neon launch, verification, automated review, owner testing and protections.
+- Initial setup results remain explicitly historical; current baseline/protection evidence links are added.
+- Earlier baseline checks: inventory/Ruff/33 cases, desktop/mobile Chromium and exact-commit clean ZIP passed.
+- Hosted real drafts, edited copying, sign-in/conflict recovery, redeploy retention and 15+ minute idle access verified.
+- Joshua approved manual, local AI and hosted flows; independent human installation and physical-phone tests remain unverified.
+- Course port 9001 uses HTTP: fictional data only; credentials and local records remain outside Git.
+- Documentation validation: changed-path scope, stale-claim search, local links and diff checks; no app tests or provider calls needed.
+- PR #25 includes reviewer-policy documentation, so Hermes cannot approve/merge this PR under its existing role boundaries.
+- Next: obtain an eligible review for documentation when available; owner/team decides later app work and presentation tasks.
+- PLAN.md is the single outcomes checklist; issues #2/#18/#23 hold governance/integration/deployment evidence.

@@ -69,10 +69,10 @@ dry run first. GitHub's merge API pins the head; main is rechecked immediately
 before the request because the API has no separate atomic expected-base field.
 No protection, review dismissal or conflicting-branch workaround is exposed.
 
-Repository-wide safeguards remain deliberately inactive under Joshua's November 9
-decision. Local broker checks do not establish server-side protection. Joshua may
-oversee owner tasks himself; Hermes never approves or merges its own policy,
-tool or credential changes. Future protection activation needs a new owner instruction.
+Main's GitHub safeguards are now active under Joshua's later November 9 decision;
+[GITHUB_SETUP.md](GITHUB_SETUP.md) records them. Local broker checks supplement
+server-side enforcement. Hermes never approves or merges its own policy, tool or
+credential changes. Owner authorization does not waive GitHub review/check gates.
 
 ## Observed verification - November 9, 2026
 
@@ -81,8 +81,10 @@ tool or credential changes. Future protection activation needs a new owner instr
 - The real Hermes smoke session exposed the six MCP tools and a parallel-call
   wrapper, and called only identity, current-main read and open-PR read.
 - That smoke check saw main `87a21bd344c1775dfcc9571879377ca7e49b7469` and zero open PRs.
-- The setup posted no review and merged no PR. Actual write behavior remains to
-  be exercised on a genuine eligible PR; offline tests do not establish it.
+- The setup smoke posted no review and merged no PR. Subsequently, the dedicated
+  profile posted disclosed reviews, requested two fixes on PR #22, verified them,
+  and approved/merged eligible PRs #22/#24 after passing checks. Those PR histories
+  establish exercised writes; the original smoke and offline tests alone do not.
 
 The installed privileged tooling lives outside this repository. Installation or
 repair on another machine is an operator task, not an instruction for Hermes to
