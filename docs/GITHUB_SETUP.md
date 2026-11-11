@@ -36,9 +36,12 @@ If no eligible reviewer is available, leave the PR open. Never lower protection 
 meet a deadline. [CONTRIBUTING.md](../CONTRIBUTING.md) describes fix verification,
 review dismissal and merge responsibilities.
 
+Push task branches using your contributor account. GitHub uses the account that
+authenticated the push to enforce the latest-push approval rule. Reserve JoshKozy
+for Hermes review and merge actions.
+
 The saved rules were read back through GitHub's API, and security controls were
-verified after reload. PR #25 reports merging blocked; no destructive push or merge
-test was attempted. CI has read-only repository permissions, checkout does not
+verified after reload. CI has read-only repository permissions, checkout does not
 persist credentials, Actions are pinned to commit SHAs, and no provider keys or
 live model calls are needed for CI.
 
